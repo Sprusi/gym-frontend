@@ -1,0 +1,22 @@
+.default {
+  &Wrapper {
+    height: 100vh;
+    width: 15%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+  }
+
+  &Content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &Button {
+      padding: 1em 3em;
+      border-radius: 5px;
+      border: 1px solid grey;
+      color: white;
+      background-color: #171717;
+    }
+  }
+}
