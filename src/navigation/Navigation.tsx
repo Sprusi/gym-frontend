@@ -1,12 +1,14 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Default } from '@/components/default/Default';
+import { AnimationPage } from '@/pages/animation/AnimationPage';
+import { LessonsPage } from '@/pages/lessons/LessonsPage';
 
 const Navigation = () => {
   return (
     <Routes>
-      <Route path="/" element={<Default />} />
+      <Route path="/" element={<AnimationPage />} />
+      <Route path="/lessons" element={<LessonsPage />} />
       <Route path="*" element={<Navigate replace to={'/'} />} />
     </Routes>
   );

@@ -1,0 +1,33 @@
+.view {
+  font-size: 200%;
+  color: white;
+  & > *:not(:last-child) {
+    margin-bottom: 5%;
+  }
+  &Wrapper {
+    height: 90%;
+    margin-left: 15%;
+    max-width: 38%;
+  }
+  &Title {
+    margin: 0 !important;
+    color: white !important;
+    font-size: 1.5em !important;
+  }
+  &MotivationBlock {
+    font-size: 0.5em;
+    color: white;
+  }
+  &Button {
+    font-size: 1em;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 25px 38px;
+    background-color: transparent !important;
+    border-radius: 15px;
+    color: white;
+    &:hover {
+      color: grey !important;
+      border: 1px solid rgba($color: grey, $alpha: 0.5) !important;
+    }
+  }
+}
