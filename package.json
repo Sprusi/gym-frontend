@@ -7,7 +7,7 @@
     "start": "yarn lint && webpack serve --env mode=development --env hot=true",
     "build": "yarn run clean && yarn lint && webpack --env mode=production",
     "build:dev": "yarn run clean && yarn lint && webpack --env mode=development",
-    "lint": "eslint --config ./settings/eslint/.eslintrc.js --ignore-path settings/eslint/.eslintignore src",
+    "lint": "eslint src",
     "clean": "rm -rf build",
     "analyzer": "webpack --env mode=production --env analyzer=true"
   },
@@ -55,6 +55,7 @@
     "webpack-dev-server": "^5.2.0"
   },
   "dependencies": {
+    "antd": "^5.24.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^6.3.0"
