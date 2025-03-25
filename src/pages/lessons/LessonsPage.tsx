@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { MainMan } from './cards/MainMan';
+import { LessonsInfoCards } from './info-cards/LessonsInfoCards';
+import { LessonsTariffCards } from './tariff-cards/LessonsTariffCards';
+import { LessonsTrainerCard } from './trainer-card/LessonsTrainerCard';
 
 export const LessonsPage = () => {
-  // REMAKE
   return (
-    // Временный div
-    <div style={{ backgroundColor: '#0e0e0efa' }}>
-      <div style={{ width: '80%', height: '100vh', margin: '0 auto' }}>
-        <MainMan />
-      </div>
+    <div style={{ width: '80%', height: '100vh', overflow: 'hidden', margin: '0 auto' }}>
+      <LessonsTrainerCard />
+      <LessonsInfoCards />
+      <LessonsTariffCards />
     </div>
   );
 };
