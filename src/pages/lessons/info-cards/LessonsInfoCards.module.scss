@@ -1,0 +1,46 @@
+.card {
+  min-width: 20%;
+  border-radius: 2em;
+  background-color: inherit;
+  border: 0.03em solid rgba(127, 127, 127, 0.5);
+  position: relative;
+  &:hover {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  }
+  &Space {
+    row-gap: 0;
+  }
+  &Title {
+    color: white;
+  }
+  &Suptitle {
+    color: #ccc;
+  }
+  &BorderItem {
+    content: '""';
+    position: absolute;
+    width: 2.5em;
+    height: 2.5em;
+    &BottomLeft {
+      bottom: 0;
+      left: 0;
+      border-bottom: 0.03em solid orange;
+      border-left: 0.03em solid orange;
+      border-bottom-left-radius: 1.9em;
+    }
+    &BottomRight {
+      bottom: 0;
+      right: 0;
+      border-bottom: 0.03em solid orange;
+      border-right: 0.03em solid orange;
+      border-bottom-right-radius: 1.9em;
+    }
+    &TopRight {
+      top: 0;
+      right: 0;
+      border-top: 0.03em solid orange;
+      border-right: 0.03em solid orange;
+      border-top-right-radius: 1.9em;
+    }
+  }
+}

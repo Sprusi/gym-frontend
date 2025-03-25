@@ -1,5 +1,4 @@
 .view {
-  font-size: 200%;
   color: white;
   & > *:not(:last-child) {
     margin-bottom: 5%;
@@ -20,10 +19,10 @@
   }
   &Button {
     font-size: 1em;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    padding: 25px 38px;
+    border: 0.07em solid rgba(255, 255, 255, 0.5);
+    padding: 0.8em 1.2em;
     background-color: transparent !important;
-    border-radius: 15px;
+    border-radius: 0.5em;
     color: white;
     &:hover {
       color: grey !important;
