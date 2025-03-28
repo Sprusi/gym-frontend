@@ -4,12 +4,12 @@
 }
 
 .light {
-  background-color: #d3d3d3;
+  background-color: #ffffffd9;
   color: black;
   &:hover {
     color: black !important;
-    background-color: #b2b2b2 !important;
-    border: 1px solid #b2b2b2 !important;
+    background-color: rgb(214, 214, 214) !important;
+    border: 1px solid #000 !important;
   }
 }
 
