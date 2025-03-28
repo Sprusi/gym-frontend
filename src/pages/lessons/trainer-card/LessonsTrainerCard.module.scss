@@ -1,21 +1,26 @@
 .card {
-  min-width: 20%;
+  height: 45vh;
   border-radius: 1.5em;
-  background-color: inherit;
+  background: url('@/assets/page/lessons/trainer.jpg') no-repeat;
+  background-position: 120% 20%;
   border: 0.03em solid rgba(127, 127, 127, 0.5);
-  position: relative;
-  &:hover {
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  & :global(.ant-card-body) {
+    height: 100%;
   }
-  &Space {
-    row-gap: 0;
-    width: 80%;
+
+  &Wrapper {
+    width: 90%;
+    height: 100%;
     margin: 0 auto;
   }
-  &Suptitle {
-    color: #8f8f8f;
-    font-size: 0.8em;
+
+  &SubTitle {
+    max-width: 50%;
+    &Span {
+      color: orange;
+    }
   }
+
   &BorderItem {
     content: '""';
     position: absolute;
@@ -27,13 +32,6 @@
       border-bottom: 0.03em solid orange;
       border-left: 0.03em solid orange;
       border-bottom-left-radius: 1.4em;
-    }
-    &BottomRight {
-      bottom: 0;
-      right: 0;
-      border-bottom: 0.03em solid orange;
-      border-right: 0.03em solid orange;
-      border-bottom-right-radius: 1.4em;
     }
     &TopRight {
       top: 0;

@@ -1,15 +1,18 @@
 import React from 'react';
 
+import { Space } from 'antd';
+
 import { LessonsInfoCards } from './info-cards/LessonsInfoCards';
+import styles from './LessonsPage.module.scss';
 import { LessonsTariffCards } from './tariff-cards/LessonsTariffCards';
 import { LessonsTrainerCard } from './trainer-card/LessonsTrainerCard';
 
 export const LessonsPage = () => {
   return (
-    <div style={{ width: '80%', height: '100vh', overflow: 'hidden', margin: '0 auto' }}>
+    <Space className={styles.view} direction="vertical">
       <LessonsTrainerCard />
       <LessonsInfoCards />
       <LessonsTariffCards />
-    </div>
+    </Space>
   );
 };

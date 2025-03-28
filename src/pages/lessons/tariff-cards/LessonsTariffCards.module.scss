@@ -1,0 +1,49 @@
+.content {
+  &Column {
+    min-width: 580px;
+    &Wrapper {
+      width: 100%;
+    }
+  }
+}
+
+.card {
+  height: 30vh;
+  border: 0.03em solid #262626;
+  background-size: cover;
+  background-repeat: no-repeat;
+  & :global(.ant-card-body) {
+    height: 100%;
+  }
+  &:hover {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  }
+
+  &Wrapper {
+    height: 100%;
+  }
+  &Button {
+    width: max-content;
+    padding: 0 40px;
+  }
+
+  &Girls {
+    background-position: right top;
+    &Title {
+      color: #575757 !important;
+    }
+  }
+  &Boys {
+    background-position: 100% 20%;
+    height: 62vh;
+    &Title {
+      color: rgb(208, 208, 208) !important;
+    }
+  }
+  &Children {
+    background-position: 0% 50%;
+    &Title {
+      color: rgb(208, 208, 208) !important;
+    }
+  }
+}

@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Button, Flex, Space, Typography } from 'antd';
+import { Flex, Space, Typography } from 'antd';
+
+import { ButtonCustomer } from '@/components/button-customer/ButtonCustomer';
 
 import { InterfaceLabels } from '@/constants';
 
@@ -10,25 +12,23 @@ import { BackgroundMotion } from './background-motion/BackgroundMotion';
 
 export const AnimationPage: FC = () => {
   const navigate = useNavigate();
-  const handleStart = () => navigate('lessons');
+  const handleStart = () => navigate('/lessons');
 
   return (
     <BackgroundMotion>
-      <Flex align="center" className={styles.viewWrapper}>
+      <Flex className={styles.viewWrapper}>
         <Space className={styles.view} direction="vertical">
           <Space direction="vertical">
             <Typography.Title className={styles.viewTitle}>{InterfaceLabels.AP_TITLE_FIRST}</Typography.Title>
             <Typography.Title className={styles.viewTitle}>{InterfaceLabels.AP_TITLE_SECOND}</Typography.Title>
           </Space>
           <Space>
-            <Typography.Text className={styles.viewMotivationBlock}>
-              {InterfaceLabels.AP_MOTIVATIONAL_QUOTE}
-            </Typography.Text>
+            <Typography.Text>{InterfaceLabels.AP_MOTIVATIONAL_QUOTE}</Typography.Text>
           </Space>
           <Space>
-            <Button onClick={handleStart} className={styles.viewButton}>
+            <ButtonCustomer type="transparent" size="large" onClick={handleStart}>
               {InterfaceLabels.AP_START_BUTTON}
-            </Button>
+            </ButtonCustomer>
           </Space>
         </Space>
       </Flex>

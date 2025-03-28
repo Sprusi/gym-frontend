@@ -1,0 +1,31 @@
+.button {
+  width: max-content;
+  padding: 0.9em 1.7em;
+}
+
+.light {
+  background-color: #d3d3d3;
+  color: black;
+  &:hover {
+    color: black !important;
+    background-color: #b2b2b2 !important;
+    border: 1px solid #b2b2b2 !important;
+  }
+}
+
+.dark {
+  &:hover {
+    color: grey !important;
+    border: 1px solid rgba($color: grey, $alpha: 0.5) !important;
+  }
+}
+
+.transparent {
+  border: 0.07em solid rgba(255, 255, 255, 0.5);
+  background-color: transparent !important;
+  border-radius: 0.5em;
+  &:hover {
+    color: grey !important;
+    border: 1px solid rgba($color: grey, $alpha: 0.5) !important;
+  }
+}
