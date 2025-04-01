@@ -1,32 +1,29 @@
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import { BuildOptions } from "settings/webpack/types";
+import { BuildOptions } from 'settings/webpack/types';
+
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 export const getStyleLoaders = ({ mode }: BuildOptions) => {
-  const isProd = mode === "production";
-  const isDev = mode === "development";
+  const isProd = mode === 'production';
+  const isDev = mode === 'development';
 
   const moduleStyleLoader = {
     test: /\.module\.(sc|c)ss$/,
     use: [
-      isProd ? MiniCssExtractPlugin.loader : "style-loader",
+      isProd ? MiniCssExtractPlugin.loader : 'style-loader',
       {
-        loader: "css-loader",
+        loader: 'css-loader',
         options: {
           modules: {
-            localIdentName: isDev ? "[path][name]__[local]" : "[hash:base64:8]",
+            localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64:8]',
           },
         },
       },
-      "sass-loader",
+      'sass-loader',
     ],
   };
 
   const baseStyleLoader = {
-    use: [
-      isProd ? MiniCssExtractPlugin.loader : "style-loader",
-      "css-loader",
-      "sass-loader",
-    ],
+    use: [isProd ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', 'sass-loader'],
   };
 
   const styleLoader = {

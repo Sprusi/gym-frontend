@@ -1,17 +1,13 @@
-import { ModuleOptions } from "webpack";
-import { assetLoader } from "./asset";
-import { svgLoader } from "./svg";
-import { tsLoader } from "./ts";
-import { getStyleLoaders } from "./style";
-import { BuildOptions } from "settings/webpack/types";
-import { getBabelLoaders } from "./babel";
+import { ModuleOptions } from 'webpack';
 
-export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
-  return [
-    getBabelLoaders(options),
-    assetLoader,
-    svgLoader,
-    getStyleLoaders(options),
-    tsLoader,
-  ];
+import { BuildOptions } from 'settings/webpack/types';
+
+import { assetLoader } from './asset';
+import { getBabelLoaders } from './babel';
+import { getStyleLoaders } from './style';
+import { svgLoader } from './svg';
+import { tsLoader } from './ts';
+
+export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
+  return [getBabelLoaders(options), assetLoader, svgLoader, getStyleLoaders(options), tsLoader];
 }
