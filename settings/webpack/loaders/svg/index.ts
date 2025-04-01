@@ -3,11 +3,11 @@ export const svgLoader = {
   issuer: /\.[jt]sx?$/,
   use: [
     {
-      loader: "@svgr/webpack",
+      loader: '@svgr/webpack',
       options: {
         icon: true,
         svgoConfig: {
-          plugins: [{ name: "convertColors", params: { currentColor: true } }],
+          plugins: [{ name: 'convertColors', params: { currentColor: true } }],
         },
       },
     },

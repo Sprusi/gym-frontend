@@ -7,7 +7,7 @@ export interface BuildPaths {
   public: string;
 }
 
-export type BuildMode = "development" | "production";
+export type BuildMode = 'development' | 'production';
 
 export interface BuildOptions {
   port: number;
