@@ -9,7 +9,8 @@
     "build:dev": "yarn run clean && yarn lint && webpack --env mode=development",
     "lint": "eslint src",
     "clean": "rm -rf build",
-    "analyzer": "webpack --env mode=production --env analyzer=true"
+    "analyzer": "webpack --env mode=production --env analyzer=true",
+    "analyzer:dev": "webpack --env mode=development --env analyzer=true"
   },
   "keywords": [],
   "author": "",
