@@ -15,7 +15,7 @@ interface EnvVariables {
 export default (env: EnvVariables) => {
   const config: webpack.Configuration = buildWebpack({
     mode: env.mode ?? 'development',
-    port: env.port ?? 3000,
+    port: env.port ?? 3001,
     paths: {
       entry: path.resolve(__dirname, 'src', 'index'),
       output: path.resolve(__dirname, 'build'),
