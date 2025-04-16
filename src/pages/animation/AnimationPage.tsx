@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Button, Flex, Space, Typography } from 'antd';
+import { Flex, Space, Typography } from 'antd';
+
+import { ButtonCustomed } from '@/components/button/ButtonCustomed';
 
 import { InterfaceLabels } from '@/constants';
 
@@ -26,9 +28,9 @@ export const AnimationPage: FC = () => {
             </Typography.Text>
           </Space>
           <Space>
-            <Button onClick={handleStart} className={styles.viewButton}>
+            <ButtonCustomed type="transparent" onClick={handleStart}>
               {InterfaceLabels.AP_START_BUTTON}
-            </Button>
+            </ButtonCustomed>
           </Space>
         </Space>
       </Flex>
