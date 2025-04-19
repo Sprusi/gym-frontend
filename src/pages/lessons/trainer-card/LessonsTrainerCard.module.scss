@@ -1,0 +1,45 @@
+.card {
+  background: url('@/assets/page/lessons/trener.png') no-repeat 100% 20%;
+  background-size: 80%;
+  height: 50vh;
+  border-radius: 1.8em;
+  :global(.ant-card-body) {
+    height: 90%;
+  }
+  &Wrapper {
+    width: 85%;
+    height: 100%;
+    margin: 0 auto;
+  }
+  &TextBlock {
+    width: 70%;
+    &Span {
+      color: orange;
+    }
+  }
+  &Button {
+    width: 300px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+  &BorderItem {
+    content: '""';
+    position: absolute;
+    width: 2.5em;
+    height: 2.5em;
+    &BottomLeft {
+      bottom: 0;
+      left: 0;
+      border-bottom: 0.03em solid orange;
+      border-left: 0.03em solid orange;
+      border-bottom-left-radius: 1.7em;
+    }
+    &TopRight {
+      top: 0;
+      right: 0;
+      border-top: 0.03em solid orange;
+      border-right: 0.03em solid orange;
+      border-top-right-radius: 1.7em;
+    }
+  }
+}
