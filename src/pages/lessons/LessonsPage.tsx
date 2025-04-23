@@ -3,13 +3,14 @@ import React from 'react';
 import { Space } from 'antd';
 
 import { LessonsInfoCards } from './info-cards/LessonsInfoCards';
+import styles from './LessonsPage.module.scss';
 import { LessonsTariffCards } from './tariff-cards/LessonsTariffCards';
 import { LessonsTrainerCard } from './trainer-card/LessonsTrainerCard';
 
 export const LessonsPage = () => {
   return (
-    <div style={{ width: '80%', height: '100vh', overflow: 'hidden', margin: '0 auto' }}>
-      <Space direction="vertical" style={{ width: '100%' }} size="large">
+    <div className={styles.wrapper}>
+      <Space direction="vertical" size="large" className={styles.content}>
         <LessonsTrainerCard />
         <LessonsInfoCards />
         <LessonsTariffCards />

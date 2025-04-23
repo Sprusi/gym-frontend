@@ -20,3 +20,8 @@ export const LP_INFO_CARDS = {
   thirdTitle: 'ЭТО ЭФФЕКТИВНО',
   thirdSubtitle: 'Подбор техники под каждого',
 };
+export const LP_TRAINER_CARDS = {
+  title: 'Твой ринг',
+  subText: ['Это ', 'ММА', ' для каждого независимо от возраста и уровня подготовки'],
+  button: 'Занятие с тренером',
+};

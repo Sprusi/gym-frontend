@@ -1,9 +1,10 @@
-/* eslint-disable i18n/no-russian-character */
 import React from 'react';
 
 import { Card, Col, Row, Space, Typography } from 'antd';
 
 import { ButtonCustomed } from '@/components/button/ButtonCustomed';
+
+import { InterfaceLabels } from '@/constants';
 
 import styles from './LessonsTrainerCard.module.scss';
 
@@ -16,14 +17,15 @@ export const LessonsTrainerCard = () => {
         <Col>
           <Space direction="vertical" size="large">
             <Space direction="vertical" className={styles.cardTextBlock}>
-              <Typography.Title level={2}>Твой ринг</Typography.Title>
+              <Typography.Title level={2}>{InterfaceLabels.LP_TRAINER_CARDS.title}</Typography.Title>
               <Typography.Text>
-                Это <span className={styles.cardTextBlockSpan}>ММА</span> для каждого независимо от возраста и уровня
-                подготовки
+                {InterfaceLabels.LP_TRAINER_CARDS.subText[0]}
+                <span className={styles.cardTextBlockSpan}>{InterfaceLabels.LP_TRAINER_CARDS.subText[1]}</span>
+                {InterfaceLabels.LP_TRAINER_CARDS.subText[2]}
               </Typography.Text>
             </Space>
             <ButtonCustomed size="large" type="transparent" className={styles.cardButton}>
-              Занятие с тренером
+              {InterfaceLabels.LP_TRAINER_CARDS.button}
             </ButtonCustomed>
           </Space>
         </Col>
