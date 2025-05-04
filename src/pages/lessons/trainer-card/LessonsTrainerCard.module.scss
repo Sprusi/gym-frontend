@@ -1,5 +1,5 @@
 .card {
-  background: #000 url('@/assets/page/lessons/trener.png') no-repeat 100% 20%;
+  background: #111 url('@/assets/page/lessons/trener.png') no-repeat 100% 20%;
   background-size: 80%;
   height: 50vh;
   border-radius: 1.8em;
@@ -41,5 +41,8 @@
       border-right: 0.03em solid orange;
       border-top-right-radius: 1.7em;
     }
+  }
+  @media (max-width: 960px) {
+    background: #111;
   }
 }

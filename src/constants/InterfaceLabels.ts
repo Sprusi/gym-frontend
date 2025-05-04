@@ -25,3 +25,13 @@ export const LP_TRAINER_CARDS = {
   subText: ['Это ', 'ММА', ' для каждого независимо от возраста и уровня подготовки'],
   button: 'Занятие с тренером',
 };
+
+/**
+ * Tariff Page
+ */
+export const TP_CARD_TITLES = {
+  girl: 'ТВОЙ РИНГ ДЕВУШКАМ',
+  child: 'ТВОЙ РИНГ ДЕТЯМ',
+  boy: 'ТВОЙ РИНГ МУЖЧИНАМ',
+};
+export const TP_GO_TRAINING_BUTTON = 'Записаться';

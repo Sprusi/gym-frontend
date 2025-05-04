@@ -1,0 +1,34 @@
+.card {
+  height: 50vh;
+  :global(.ant-card-body) {
+    height: 100%;
+  }
+
+  &Content {
+    padding: 8% 0;
+    height: 100%;
+  }
+
+  &Title {
+    color: #737473;
+  }
+  &Button {
+    width: fit-content;
+    padding: 18px 30px;
+    border-radius: 12px;
+  }
+}
+
+.girlCard {
+  background: #dadcd9 url('@/assets/page/lessons/girl.png') no-repeat 15% 100%;
+  background-size: cover;
+}
+
+.childCard {
+  background: #dfcdbc url('@/assets/page/lessons/child.png') no-repeat 10% 100%;
+  background-size: cover;
+}
+.boyCard {
+  background: #1d1d1d url('@/assets/page/lessons/boy.png') no-repeat 0% 0%;
+  background-size: cover;
+}

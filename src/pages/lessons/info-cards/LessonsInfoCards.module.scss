@@ -3,6 +3,10 @@
   border-radius: 2em;
   background-color: inherit;
   border: 0.03em solid rgba(127, 127, 127, 0.5);
+  margin-bottom: 9px;
+  &:not(:last-child) {
+    margin-right: 2%;
+  }
   position: relative;
   &:hover {
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
