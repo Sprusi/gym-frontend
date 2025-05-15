@@ -9,5 +9,5 @@ import { svgLoader } from './svg';
 import { tsLoader } from './ts';
 
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
-  return [getBabelLoaders(options), assetLoader, svgLoader, getStyleLoaders(options), tsLoader];
+  return [getBabelLoaders(), assetLoader, svgLoader, getStyleLoaders(options), tsLoader];
 }

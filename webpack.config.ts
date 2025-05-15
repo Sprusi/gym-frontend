@@ -8,7 +8,6 @@ import { buildWebpack } from './settings/webpack/buildWebpack';
 interface EnvVariables {
   mode: BuildMode;
   port: number;
-  hot: string;
   analyzer: string;
 }
 
@@ -24,7 +23,6 @@ export default (env: EnvVariables) => {
       src: path.resolve(__dirname, 'src'),
       public: path.resolve(__dirname, 'public'),
     },
-    hot: env.hot === 'true' ? true : false,
     analyzer: env.analyzer === 'true' ? true : false,
   });
   return config;

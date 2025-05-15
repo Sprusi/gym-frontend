@@ -1,6 +1,6 @@
 import { theme, ThemeConfig } from 'antd';
 
-export const flmsTheme: ThemeConfig = {
+export const gymTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
   token: {
     fontSize: 20,

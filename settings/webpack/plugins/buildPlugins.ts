@@ -1,4 +1,3 @@
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { Configuration, container } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -12,9 +11,8 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 const { ModuleFederationPlugin } = container;
 
 export function buildPlugins(options: BuildOptions): Configuration['plugins'] {
-  const { mode, paths, hot, analyzer } = options;
+  const { mode, paths, analyzer } = options;
   const isProd = mode === 'production';
-  const isDev = mode === 'development';
 
   const plugins: Configuration['plugins'] = [
     new HtmlWebpackPlugin({
@@ -52,10 +50,6 @@ export function buildPlugins(options: BuildOptions): Configuration['plugins'] {
         ignoreOrder: true,
       })
     );
-  }
-
-  if (isDev) {
-    hot && plugins.push(new ReactRefreshWebpackPlugin());
   }
 
   if (analyzer) {
