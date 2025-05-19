@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Card, Col, Row, Space, Typography } from 'antd';
 
@@ -9,6 +10,8 @@ import { InterfaceLabels } from '@/constants';
 import styles from './LessonsTrainerCard.module.scss';
 
 export const LessonsTrainerCard = () => {
+  const navigate = useNavigate();
+
   return (
     <Card className={styles.card}>
       <div className={`${styles.cardBorderItem} ${styles.cardBorderItemTopRight}`} />
@@ -24,7 +27,12 @@ export const LessonsTrainerCard = () => {
                 {InterfaceLabels.LP_TRAINER_CARDS.subText[2]}
               </Typography.Text>
             </Space>
-            <ButtonCustomed size="large" type="transparent" className={styles.cardButton}>
+            <ButtonCustomed
+              size="large"
+              type="transparent"
+              className={styles.cardButton}
+              onClick={() => navigate('/gym/payment')}
+            >
               {InterfaceLabels.LP_TRAINER_CARDS.button}
             </ButtonCustomed>
           </Space>

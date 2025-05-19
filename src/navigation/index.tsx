@@ -1,22 +1,29 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { ConfigProvider } from 'antd';
+import ru_RU from 'antd/es/locale/ru_RU';
+
 import { AnimationPage } from '@/pages/animation/AnimationPage';
 import { LessonsPage } from '@/pages/lessons/LessonsPage';
+import { Payment } from '@/pages/payment/Payment';
 
 import '../index.css';
 
 import { BaseLayout } from '@/layout/BaseLayout';
+import { gymTheme } from '@/styles/theme';
 
 const Navigation = () => {
   return (
-    <Routes>
-      <Route path="/" element={<AnimationPage />} />
-      <Route element={<BaseLayout />}>
-        <Route path="/lessons" element={<LessonsPage />} />
+    <ConfigProvider locale={ru_RU} theme={gymTheme}>
+      <Routes>
+        <Route path="/" element={<AnimationPage />} index />
         <Route path="*" element={<Navigate replace to={'/'} />} />
-      </Route>
-    </Routes>
+        <Route path="/lessons" element={<LessonsPage />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route element={<BaseLayout />}></Route>
+      </Routes>
+    </ConfigProvider>
   );
 };
 

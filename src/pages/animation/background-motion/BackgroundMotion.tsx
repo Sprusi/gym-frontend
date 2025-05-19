@@ -1,5 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 
+import classNames from 'classnames';
+
 import styles from './BackgroundMotion.module.scss';
 
 interface BackgroundMotionProps {
@@ -7,8 +9,9 @@ interface BackgroundMotionProps {
 }
 
 export const BackgroundMotion: FC<BackgroundMotionProps> = ({ children }) => {
+  const microfrontClasses = window.IS_MICROFRONTEND ? styles.wrapperMicrofront : '';
   return (
-    <div className={styles.wrapper}>
+    <div className={classNames(styles.wrapper, microfrontClasses)}>
       <div className={styles.wrapperShadow}>{children}</div>
     </div>
   );

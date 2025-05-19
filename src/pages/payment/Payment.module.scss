@@ -1,0 +1,33 @@
+.wrapper {
+  height: 100%;
+  width: 90%;
+  margin: 1% auto;
+  position: relative;
+}
+
+.title {
+  margin-bottom: 3%;
+}
+
+.card {
+  &Wrapper {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+  &Table {
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+}
+
+.selectedDrawer {
+  position: absolute;
+  right: 5%;
+  bottom: 10%;
+  &Delete {
+    color: #dc4446 !important;
+  }
+  &Payt {
+    margin-top: 50px;
+  }
+}

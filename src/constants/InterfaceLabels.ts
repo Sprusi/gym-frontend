@@ -1,5 +1,10 @@
 /* eslint-disable i18n/no-russian-character */
 
+export const SUCCESS = 'Выполнено успешно';
+export const ERR_DEFAULT = 'Произошла ошибка';
+export const FROM_TO: [string, string] = ['с', 'до'];
+export const RUB = 'руб.';
+
 /**
  * Animation Page
  */
@@ -35,3 +40,26 @@ export const TP_CARD_TITLES = {
   boy: 'ТВОЙ РИНГ МУЖЧИНАМ',
 };
 export const TP_GO_TRAINING_BUTTON = 'Записаться';
+
+/**
+ * Payment Page
+ */
+export const PP_TITLE = 'Тарифы';
+export const PP_TARIF_DAY_TYPES = {
+  morning: 'Утренний',
+  afternoon: 'Дневной',
+  evening: 'Вечерний',
+};
+export const PP_TARIF_TITLES = {
+  girl: 'Девушкам',
+  boy: 'Мужчинам',
+  children: 'Детям',
+};
+export const PP_TRENER = 'Тренер:';
+export const PP_COLUMNS = {
+  name: 'Название',
+  time: 'Режим работы',
+  price: 'Цена',
+};
+export const PP_SELECTED_TARIFS = 'Выбранные тарифы';
+export const PP_PAYT = 'Оплатить';

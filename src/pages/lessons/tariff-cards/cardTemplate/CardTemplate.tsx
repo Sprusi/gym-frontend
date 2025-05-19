@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Card, Flex, Typography } from 'antd';
 
@@ -15,6 +16,7 @@ interface CardTemplateProps {
 }
 
 export const CardTemplate: FC<CardTemplateProps> = ({ type }) => {
+  const navigate = useNavigate();
   const { className, title } = CARD_TEMPLATE_DATA[type];
 
   return (
@@ -23,7 +25,9 @@ export const CardTemplate: FC<CardTemplateProps> = ({ type }) => {
         <Typography.Text strong className={styles.cardTitle}>
           {title}
         </Typography.Text>
-        <ButtonCustomed className={styles.cardButton}>{InterfaceLabels.TP_GO_TRAINING_BUTTON}</ButtonCustomed>
+        <ButtonCustomed className={styles.cardButton} onClick={() => navigate('/gym/payment')}>
+          {InterfaceLabels.TP_GO_TRAINING_BUTTON}
+        </ButtonCustomed>
       </Flex>
     </Card>
   );
