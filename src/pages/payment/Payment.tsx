@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { PlusOutlined } from '@ant-design/icons';
@@ -14,6 +15,8 @@ import { SelectedDrawer } from './selected-drawer/SelectedDrawer';
 import { TariffData, TARIFS_TYPE } from './settings';
 
 export const Payment = () => {
+  const { type } = useParams();
+
   const initTrainerSelected = TARIFS_TYPE.reduce((acc, { type }) => {
     return (acc[type] = false), acc;
   }, {} as Record<string, boolean>);
@@ -22,6 +25,15 @@ export const Payment = () => {
 
   const toggleTrainer = (type: string) => setIsTrenerSelected((prev) => ({ ...prev, [type]: !prev[type] }));
 
+  const instanceData = useMemo(
+    () =>
+      TARIFS_TYPE.sort((a, b) => {
+        if (a.type === type) return -1;
+        if (b.type === type) return 1;
+        return 0;
+      }),
+    []
+  );
   const columns = useMemo(
     () => [
       { key: 'name', dataIndex: 'name', title: InterfaceLabels.PP_COLUMNS.name },
@@ -61,7 +73,7 @@ export const Payment = () => {
             <Typography.Title level={3}>{InterfaceLabels.PP_TITLE}</Typography.Title>
           </Row>
           <Carousel arrows>
-            {TARIFS_TYPE.map(({ type, title, tarifs, trenerPrice }) => (
+            {instanceData.map(({ type, title, tarifs, trenerPrice }) => (
               <Card key={type}>
                 <div className={styles.cardWrapper}>
                   <Typography.Text strong>{title}</Typography.Text>

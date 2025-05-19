@@ -31,7 +31,7 @@ export const LessonsTrainerCard = () => {
               size="large"
               type="transparent"
               className={styles.cardButton}
-              onClick={() => navigate('/gym/payment')}
+              onClick={() => navigate('/gym/payment/traner')}
             >
               {InterfaceLabels.LP_TRAINER_CARDS.button}
             </ButtonCustomed>

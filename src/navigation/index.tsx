@@ -20,7 +20,7 @@ const Navigation = () => {
         <Route path="/" element={<AnimationPage />} index />
         <Route path="*" element={<Navigate replace to={'/'} />} />
         <Route path="/lessons" element={<LessonsPage />} />
-        <Route path="/payment" element={<Payment />} />
+        <Route path="/payment/:type?" element={<Payment />} />
         <Route element={<BaseLayout />}></Route>
       </Routes>
     </ConfigProvider>

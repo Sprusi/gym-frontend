@@ -16,7 +16,7 @@ export const LessonsTariffCards = () => {
       </Col>
 
       <Col xs={24} sm={24} md={12} lg={12} xl={8}>
-        <CardTemplate type="child" />
+        <CardTemplate type="children" />
       </Col>
     </Row>
   );

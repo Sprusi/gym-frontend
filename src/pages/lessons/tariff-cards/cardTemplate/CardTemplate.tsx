@@ -12,7 +12,7 @@ import styles from '../LessonsTariffCards.module.scss';
 import { CARD_TEMPLATE_DATA } from './CardTemplateSettings';
 
 interface CardTemplateProps {
-  type: 'girl' | 'child' | 'boy';
+  type: 'girl' | 'children' | 'boy';
 }
 
 export const CardTemplate: FC<CardTemplateProps> = ({ type }) => {
@@ -25,7 +25,7 @@ export const CardTemplate: FC<CardTemplateProps> = ({ type }) => {
         <Typography.Text strong className={styles.cardTitle}>
           {title}
         </Typography.Text>
-        <ButtonCustomed className={styles.cardButton} onClick={() => navigate('/gym/payment')}>
+        <ButtonCustomed className={styles.cardButton} onClick={() => navigate(`/gym/payment/${type}`)}>
           {InterfaceLabels.TP_GO_TRAINING_BUTTON}
         </ButtonCustomed>
       </Flex>
