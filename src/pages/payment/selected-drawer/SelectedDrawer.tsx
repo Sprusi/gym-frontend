@@ -2,7 +2,7 @@ import React, { FC, useMemo, useState } from 'react';
 
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { DeleteFilled, MinusCircleOutlined } from '@ant-design/icons';
-import { Avatar, Badge, Drawer, List, Space, Typography } from 'antd';
+import { Avatar, Badge, Drawer, Empty, List, Space, Typography } from 'antd';
 
 import { ButtonCustomed } from '@/components/button/ButtonCustomed';
 
@@ -10,7 +10,7 @@ import { InterfaceLabels } from '@/constants';
 import { formatAmountToLookGood } from '@/utils/NumberUtils';
 
 import styles from '../Payment.module.scss';
-import { TariffData, TARIFS_TYPE } from '../settings';
+import { GroupTariff } from '../settings';
 import { TariffTipesEnum } from '../TariffTipesEnum';
 
 import { MessageService } from '@/service/MessageService';
@@ -23,8 +23,9 @@ interface SelectedDrawerProps {
   initTrainerSelected: Record<string, boolean>;
   isTrenerSelected: Record<string, boolean>;
   setIsTrenerSelected: (
-    l: Record<string, boolean> | ((prev: Record<string, boolean>) => Record<string, boolean>)
+    record: Record<string, boolean> | ((prev: Record<string, boolean>) => Record<string, boolean>)
   ) => void;
+  instanceData: GroupTariff[];
 }
 
 export const SelectedDrawer: FC<SelectedDrawerProps> = ({
@@ -33,6 +34,7 @@ export const SelectedDrawer: FC<SelectedDrawerProps> = ({
   initTrainerSelected,
   isTrenerSelected,
   setIsTrenerSelected,
+  instanceData,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -47,25 +49,15 @@ export const SelectedDrawer: FC<SelectedDrawerProps> = ({
     MessageService.success();
   };
 
-  const selectedData = useMemo(() => {
-    const data = selectedTarifsId.reduce<Record<string, { items: TariffData[]; trenerPrice?: string }>>((acc, uuid) => {
-      for (const tarifGroup of TARIFS_TYPE) {
-        const tarif = tarifGroup.tarifs.find((t) => t.uuid === uuid);
-        if (tarif) {
-          if (!acc[tarifGroup.type]) {
-            acc[tarifGroup.type] = { items: [], trenerPrice: undefined };
-          }
-          acc[tarifGroup.type].items.push(tarif);
-          if (isTrenerSelected[tarifGroup.type]) {
-            acc[tarifGroup.type].trenerPrice = tarifGroup.trenerPrice;
-          }
-          break;
-        }
-      }
-      return acc;
-    }, {});
-    return Object.entries(data);
+  const data = useMemo(() => {
+    return instanceData.map((el) => ({
+      ...el,
+      tariffs: el.tariffs.filter(({ uuid }) => selectedTarifsId.includes(uuid)),
+      trenerPrice: isTrenerSelected[el.type] ? el.trenerPrice : undefined,
+    }));
   }, [selectedTarifsId, isTrenerSelected]);
+
+  const isSelectedData = useMemo(() => data.some((el) => el.tariffs.length), [data]);
 
   return (
     <>
@@ -80,43 +72,47 @@ export const SelectedDrawer: FC<SelectedDrawerProps> = ({
         open={open}
         size="large"
       >
-        <List
-          itemLayout="horizontal"
-          size="large"
-          dataSource={selectedData}
-          renderItem={([type, { items, trenerPrice }]) =>
-            items.map((tarif, index) => (
-              <Item
-                key={tarif.uuid}
-                actions={[
-                  <DeleteFilled
-                    key="delete"
-                    className={styles.selectedDrawerDelete}
-                    onClick={() => handleRemoveTariff(tarif.uuid)}
-                  />,
-                ]}
-              >
-                <Item.Meta
-                  title={
-                    <Typography.Text>
-                      {TariffTipesEnum[type as keyof typeof TariffTipesEnum]} - {formatAmountToLookGood(tarif.price)}
-                    </Typography.Text>
-                  }
-                  description={`${tarif.name} - ${InterfaceLabels.FROM_TO[0]} ${tarif.time[0]} ${InterfaceLabels.FROM_TO[1]} ${tarif.time[1]}`}
-                />
-                {trenerPrice && index === 0 && (
-                  <Space size="small">
-                    <MinusCircleOutlined onClick={() => toggleTrainer(type)} />
-                    <>
-                      {InterfaceLabels.PP_TRENER} {formatAmountToLookGood(trenerPrice)}
-                    </>
-                  </Space>
-                )}
-              </Item>
-            ))
-          }
-        />
-        {!!selectedData.length && (
+        {isSelectedData ? (
+          <List
+            itemLayout="horizontal"
+            size="large"
+            dataSource={data}
+            renderItem={({ type, tariffs, trenerPrice }) =>
+              tariffs.map((tarif, index) => (
+                <Item
+                  key={tarif.uuid}
+                  actions={[
+                    <DeleteFilled
+                      key="delete"
+                      className={styles.selectedDrawerDelete}
+                      onClick={() => handleRemoveTariff(tarif.uuid)}
+                    />,
+                  ]}
+                >
+                  <Item.Meta
+                    title={
+                      <Typography.Text>
+                        {TariffTipesEnum[type as keyof typeof TariffTipesEnum]} - {formatAmountToLookGood(tarif.price)}
+                      </Typography.Text>
+                    }
+                    description={`${tarif.name} - ${InterfaceLabels.FROM_TO[0]} ${tarif.time[0]} ${InterfaceLabels.FROM_TO[1]} ${tarif.time[1]}`}
+                  />
+                  {trenerPrice && index === 0 && (
+                    <Space size="small">
+                      <MinusCircleOutlined onClick={() => toggleTrainer(type)} />
+                      <>
+                        {InterfaceLabels.PP_TRENER} {formatAmountToLookGood(trenerPrice)}
+                      </>
+                    </Space>
+                  )}
+                </Item>
+              ))
+            }
+          />
+        ) : (
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        )}
+        {isSelectedData && (
           <ButtonCustomed size="large" className={styles.selectedDrawerPayt} onClick={handlePayt}>
             {InterfaceLabels.PP_PAYT}
           </ButtonCustomed>

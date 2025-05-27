@@ -12,28 +12,56 @@ import { formatAmountToLookGood } from '@/utils/NumberUtils';
 
 import styles from './Payment.module.scss';
 import { SelectedDrawer } from './selected-drawer/SelectedDrawer';
-import { TariffData, TARIFS_TYPE } from './settings';
+import { GlobalTariffType, GroupTariff, GroupTariffData, NEW_ALL_TARIFS } from './settings';
 
 export const Payment = () => {
   const { type } = useParams();
 
-  const initTrainerSelected = TARIFS_TYPE.reduce((acc, { type }) => {
-    return (acc[type] = false), acc;
+  const initTrainerSelected = Object.keys(GlobalTariffType).reduce((acc, item) => {
+    return (acc[item] = false), acc;
   }, {} as Record<string, boolean>);
   const [isTrenerSelected, setIsTrenerSelected] = useState(initTrainerSelected);
   const [selectedTarifsId, setSelectedTarifsId] = useState<string[]>([]);
 
-  const toggleTrainer = (type: string) => setIsTrenerSelected((prev) => ({ ...prev, [type]: !prev[type] }));
+  const groupedTarifs = useMemo(
+    () =>
+      NEW_ALL_TARIFS.reduce((acc, curr) => {
+        if (!acc[curr.globalType]) {
+          acc[curr.globalType] = { tarifs: [], trainerPrice: curr.trainerPrice };
+        }
+        acc[curr.globalType].tarifs.push({
+          name: InterfaceLabels.PP_TARIF_DAY_TYPES[curr.type],
+          time: [curr.timeStart, curr.timeEnd],
+          price: curr.price,
+          uuid: curr.uuid,
+        });
+
+        return acc;
+      }, {} as Record<GlobalTariffType, { tarifs: GroupTariffData[]; trainerPrice: number }>),
+    [NEW_ALL_TARIFS]
+  );
+
+  const formattedTarifs: GroupTariff[] = useMemo(
+    () =>
+      Object.entries(groupedTarifs).map(([type, data]) => ({
+        type: GlobalTariffType[type as keyof typeof GlobalTariffType],
+        title: InterfaceLabels.PP_TARIF_TITLES[type as keyof typeof GlobalTariffType],
+        tariffs: data.tarifs,
+        trenerPrice: data.trainerPrice,
+      })),
+    [groupedTarifs]
+  );
 
   const instanceData = useMemo(
     () =>
-      TARIFS_TYPE.sort((a, b) => {
+      formattedTarifs.sort((a, b) => {
         if (a.type === type) return -1;
         if (b.type === type) return 1;
         return 0;
       }),
-    []
+    [formattedTarifs]
   );
+
   const columns = useMemo(
     () => [
       { key: 'name', dataIndex: 'name', title: InterfaceLabels.PP_COLUMNS.name },
@@ -52,7 +80,7 @@ export const Payment = () => {
       {
         key: 'actions',
         dataIndex: 'actions',
-        render: (_: string, { uuid }: TariffData) => (
+        render: (_: string, { uuid }: GroupTariffData) => (
           <ButtonCustomed
             icon={<PlusOutlined />}
             disabled={selectedTarifsId.includes(uuid)}
@@ -65,6 +93,8 @@ export const Payment = () => {
     [selectedTarifsId]
   );
 
+  const toggleTrainer = (type: string) => setIsTrenerSelected((prev) => ({ ...prev, [type]: !prev[type] }));
+
   return (
     <>
       <Row className={styles.wrapper} justify={'center'} align={'middle'}>
@@ -73,7 +103,7 @@ export const Payment = () => {
             <Typography.Title level={3}>{InterfaceLabels.PP_TITLE}</Typography.Title>
           </Row>
           <Carousel arrows>
-            {instanceData.map(({ type, title, tarifs, trenerPrice }) => (
+            {instanceData.map(({ type, title, tariffs, trenerPrice }) => (
               <Card key={type}>
                 <div className={styles.cardWrapper}>
                   <Typography.Text strong>{title}</Typography.Text>
@@ -82,7 +112,7 @@ export const Payment = () => {
                     bordered
                     pagination={false}
                     columns={columns}
-                    dataSource={tarifs}
+                    dataSource={tariffs}
                     rowKey={(rec) => `${type} - ${rec.name}`}
                   />
                   <Space>
@@ -110,6 +140,7 @@ export const Payment = () => {
         initTrainerSelected={initTrainerSelected}
         isTrenerSelected={isTrenerSelected}
         setIsTrenerSelected={setIsTrenerSelected}
+        instanceData={instanceData}
       />
     </>
   );

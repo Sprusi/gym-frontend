@@ -1,50 +1,114 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { InterfaceLabels } from '@/constants';
-
-export interface TariffType {
-  type: 'girl' | 'boy' | 'children';
+export interface GroupTariff {
+  type: GlobalTariffType;
   title: string;
-  tarifs: TariffData[];
-  trenerPrice: string;
+  tariffs: GroupTariffData[];
+  trenerPrice: number;
 }
-
-export interface TariffData {
+export interface GroupTariffData {
   name: string;
   time: string[];
   price: number;
   uuid: string;
 }
 
-export const TARIFS_TYPE: TariffType[] = [
+export enum GlobalTariffType {
+  girl = 'girl',
+  boy = 'boy',
+  children = 'children',
+}
+
+interface Tariffs {
+  uuid: string;
+  globalType: GlobalTariffType;
+  type: 'morning' | 'afternoon' | 'evening';
+  timeStart: string;
+  timeEnd: string;
+  price: number;
+  trainerPrice: number;
+}
+
+export const NEW_ALL_TARIFS: Tariffs[] = [
   {
-    type: 'girl',
-    title: InterfaceLabels.PP_TARIF_TITLES.girl,
-    tarifs: [
-      { name: InterfaceLabels.PP_TARIF_DAY_TYPES.morning, time: ['8:00', '12:00'], price: 1800, uuid: uuidv4() },
-      { name: InterfaceLabels.PP_TARIF_DAY_TYPES.afternoon, time: ['12:00', '16:30'], price: 2000, uuid: uuidv4() },
-      { name: InterfaceLabels.PP_TARIF_DAY_TYPES.evening, time: ['17:00', '21:00'], price: 2200, uuid: uuidv4() },
-    ],
-    trenerPrice: '4000',
+    uuid: uuidv4(),
+    globalType: 'girl' as GlobalTariffType,
+    type: 'morning',
+    timeStart: '8:00',
+    timeEnd: '12:00',
+    price: 1800,
+    trainerPrice: 4000,
   },
   {
-    type: 'boy',
-    title: InterfaceLabels.PP_TARIF_TITLES.boy,
-    tarifs: [
-      { name: InterfaceLabels.PP_TARIF_DAY_TYPES.morning, time: ['8:00', '12:00'], price: 2000, uuid: uuidv4() },
-      { name: InterfaceLabels.PP_TARIF_DAY_TYPES.afternoon, time: ['12:00', '16:30'], price: 2200, uuid: uuidv4() },
-      { name: InterfaceLabels.PP_TARIF_DAY_TYPES.evening, time: ['17:00', '21:00'], price: 2500, uuid: uuidv4() },
-    ],
-    trenerPrice: '4000',
+    uuid: uuidv4(),
+    globalType: 'girl' as GlobalTariffType,
+    type: 'afternoon',
+    timeStart: '12:00',
+    timeEnd: '16:30',
+    price: 2000,
+    trainerPrice: 4000,
   },
   {
-    type: 'children',
-    title: InterfaceLabels.PP_TARIF_TITLES.children,
-    tarifs: [
-      { name: InterfaceLabels.PP_TARIF_DAY_TYPES.morning, time: ['8:00', '12:00'], price: 2000, uuid: uuidv4() },
-      { name: InterfaceLabels.PP_TARIF_DAY_TYPES.afternoon, time: ['12:00', '16:30'], price: 2200, uuid: uuidv4() },
-      { name: InterfaceLabels.PP_TARIF_DAY_TYPES.evening, time: ['17:00', '21:00'], price: 2500, uuid: uuidv4() },
-    ],
-    trenerPrice: '4500',
+    uuid: uuidv4(),
+    globalType: 'girl' as GlobalTariffType,
+    type: 'evening',
+    timeStart: '17:00',
+    timeEnd: '21:00',
+    price: 2200,
+    trainerPrice: 4000,
+  },
+  {
+    uuid: uuidv4(),
+    globalType: 'boy' as GlobalTariffType,
+    type: 'morning',
+    timeStart: '8:00',
+    timeEnd: '12:00',
+    price: 2000,
+    trainerPrice: 4000,
+  },
+  {
+    uuid: uuidv4(),
+    globalType: 'boy' as GlobalTariffType,
+    type: 'afternoon',
+    timeStart: '12:00',
+    timeEnd: '16:30',
+    price: 2200,
+    trainerPrice: 4000,
+  },
+  {
+    uuid: uuidv4(),
+    globalType: 'boy' as GlobalTariffType,
+    type: 'evening',
+    timeStart: '17:00',
+    timeEnd: '21:00',
+    price: 2500,
+    trainerPrice: 4000,
+  },
+  {
+    uuid: uuidv4(),
+    globalType: 'children' as GlobalTariffType,
+    type: 'morning',
+    timeStart: '8:00',
+    timeEnd: '12:00',
+    price: 2000,
+    trainerPrice: 4500,
+  },
+  {
+    uuid: uuidv4(),
+    globalType: 'children' as GlobalTariffType,
+    type: 'afternoon',
+    timeStart: '12:00',
+    timeEnd: '16:30',
+    price: 2200,
+    trainerPrice: 4500,
+  },
+  {
+    uuid: uuidv4(),
+    globalType: 'children' as GlobalTariffType,
+    type: 'evening',
+    timeStart: '17:00',
+    timeEnd: '21:00',
+    price: 2500,
+    trainerPrice: 4500,
   },
 ];
