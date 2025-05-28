@@ -1,52 +1,66 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { PlusOutlined } from '@ant-design/icons';
-import { Card, Carousel, Col, Row, Space, Table, Typography } from 'antd';
+import { Card, Carousel, Col, Row, Space, Spin, Table, Typography } from 'antd';
 
 import { ButtonCustomed } from '@/components/button/ButtonCustomed';
 
 import { InterfaceLabels } from '@/constants';
+import { showError } from '@/utils';
 import { formatAmountToLookGood } from '@/utils/NumberUtils';
 
 import styles from './Payment.module.scss';
 import { SelectedDrawer } from './selected-drawer/SelectedDrawer';
-import { GlobalTariffType, GroupTariff, GroupTariffData, NEW_ALL_TARIFS } from './settings';
+import { GlobalTicketType, GroupTariff, GroupTariffData, SeasonTicket } from '@/dto/payment/SeasonTicket';
+import { SubscriptionService } from '@/service';
 
 export const Payment = () => {
   const { type } = useParams();
 
-  const initTrainerSelected = Object.keys(GlobalTariffType).reduce((acc, item) => {
+  const initTrainerSelected = Object.keys(GlobalTicketType).reduce((acc, item) => {
     return (acc[item] = false), acc;
   }, {} as Record<string, boolean>);
   const [isTrenerSelected, setIsTrenerSelected] = useState(initTrainerSelected);
-  const [selectedTarifsId, setSelectedTarifsId] = useState<string[]>([]);
+  const [selectedTarifsIds, setSelectedTarifsIds] = useState<number[]>([]);
+
+  const [loading, setLoading] = useState(true);
+  const [ticketsData, setTicketsData] = useState<SeasonTicket[]>([]);
+
+  useEffect(() => getData(), []);
+
+  const getData = () => {
+    SubscriptionService.getAllTickets()
+      .then(({ data }) => setTicketsData(data))
+      .catch(showError)
+      .finally(() => setLoading(false));
+  };
 
   const groupedTarifs = useMemo(
     () =>
-      NEW_ALL_TARIFS.reduce((acc, curr) => {
+      ticketsData.reduce((acc, curr) => {
         if (!acc[curr.globalType]) {
-          acc[curr.globalType] = { tarifs: [], trainerPrice: curr.trainerPrice };
+          acc[curr.globalType] = { tariffs: [], trainerPrice: curr.trainerPrice };
         }
-        acc[curr.globalType].tarifs.push({
+        acc[curr.globalType].tariffs.push({
           name: InterfaceLabels.PP_TARIF_DAY_TYPES[curr.type],
           time: [curr.timeStart, curr.timeEnd],
           price: curr.price,
-          uuid: curr.uuid,
+          id: curr.id,
         });
 
         return acc;
-      }, {} as Record<GlobalTariffType, { tarifs: GroupTariffData[]; trainerPrice: number }>),
-    [NEW_ALL_TARIFS]
+      }, {} as Record<GlobalTicketType, { tariffs: GroupTariffData[]; trainerPrice: number }>),
+    [ticketsData]
   );
 
   const formattedTarifs: GroupTariff[] = useMemo(
     () =>
       Object.entries(groupedTarifs).map(([type, data]) => ({
-        type: GlobalTariffType[type as keyof typeof GlobalTariffType],
-        title: InterfaceLabels.PP_TARIF_TITLES[type as keyof typeof GlobalTariffType],
-        tariffs: data.tarifs,
+        type: GlobalTicketType[type as keyof typeof GlobalTicketType],
+        title: InterfaceLabels.PP_TARIF_TITLES[type as keyof typeof GlobalTicketType],
+        tariffs: data.tariffs,
         trenerPrice: data.trainerPrice,
       })),
     [groupedTarifs]
@@ -80,17 +94,17 @@ export const Payment = () => {
       {
         key: 'actions',
         dataIndex: 'actions',
-        render: (_: string, { uuid }: GroupTariffData) => (
+        render: (_: string, { id }: GroupTariffData) => (
           <ButtonCustomed
             icon={<PlusOutlined />}
-            disabled={selectedTarifsId.includes(uuid)}
-            onClick={() => setSelectedTarifsId((prev) => [...prev, uuid])}
+            disabled={selectedTarifsIds.includes(id)}
+            onClick={() => setSelectedTarifsIds((prev) => [...prev, id])}
           />
         ),
         width: 50,
       },
     ],
-    [selectedTarifsId]
+    [selectedTarifsIds]
   );
 
   const toggleTrainer = (type: string) => setIsTrenerSelected((prev) => ({ ...prev, [type]: !prev[type] }));
@@ -102,41 +116,43 @@ export const Payment = () => {
           <Row justify={'center'} className={styles.title}>
             <Typography.Title level={3}>{InterfaceLabels.PP_TITLE}</Typography.Title>
           </Row>
-          <Carousel arrows>
-            {instanceData.map(({ type, title, tariffs, trenerPrice }) => (
-              <Card key={type}>
-                <div className={styles.cardWrapper}>
-                  <Typography.Text strong>{title}</Typography.Text>
-                  <Table
-                    className={styles.cardTable}
-                    bordered
-                    pagination={false}
-                    columns={columns}
-                    dataSource={tariffs}
-                    rowKey={(rec) => `${type} - ${rec.name}`}
-                  />
-                  <Space>
-                    <Typography.Text>{InterfaceLabels.PP_TRENER}</Typography.Text>
-                    <ButtonCustomed
-                      type="transparent"
-                      iconPosition={'end'}
-                      icon={isTrenerSelected[type] && <CheckOutlined />}
-                      disabled={isTrenerSelected[type]}
-                      onClick={() => toggleTrainer(type)}
-                    >
-                      + {formatAmountToLookGood(trenerPrice)} {InterfaceLabels.RUB}
-                    </ButtonCustomed>
-                    {isTrenerSelected[type] && <CloseOutlined onClick={() => toggleTrainer(type)} />}
-                  </Space>
-                </div>
-              </Card>
-            ))}
-          </Carousel>
+          <Spin spinning={loading}>
+            <Carousel arrows>
+              {instanceData.map(({ type, title, tariffs, trenerPrice }) => (
+                <Card key={type}>
+                  <div className={styles.cardWrapper}>
+                    <Typography.Text strong>{title}</Typography.Text>
+                    <Table
+                      className={styles.cardTable}
+                      bordered
+                      pagination={false}
+                      columns={columns}
+                      dataSource={tariffs}
+                      rowKey={(rec) => `${type} - ${rec.name}`}
+                    />
+                    <Space>
+                      <Typography.Text>{InterfaceLabels.PP_TRENER}</Typography.Text>
+                      <ButtonCustomed
+                        type="transparent"
+                        iconPosition={'end'}
+                        icon={isTrenerSelected[type] && <CheckOutlined />}
+                        disabled={isTrenerSelected[type]}
+                        onClick={() => toggleTrainer(type)}
+                      >
+                        + {formatAmountToLookGood(trenerPrice)} {InterfaceLabels.RUB}
+                      </ButtonCustomed>
+                      {isTrenerSelected[type] && <CloseOutlined onClick={() => toggleTrainer(type)} />}
+                    </Space>
+                  </div>
+                </Card>
+              ))}
+            </Carousel>
+          </Spin>
         </Col>
       </Row>
       <SelectedDrawer
-        selectedTarifsId={selectedTarifsId}
-        setSelectedTarifsId={setSelectedTarifsId}
+        selectedTarifsIds={selectedTarifsIds}
+        setSelectedTarifsIds={setSelectedTarifsIds}
         initTrainerSelected={initTrainerSelected}
         isTrenerSelected={isTrenerSelected}
         setIsTrenerSelected={setIsTrenerSelected}

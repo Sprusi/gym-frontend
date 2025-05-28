@@ -10,16 +10,16 @@ import { InterfaceLabels } from '@/constants';
 import { formatAmountToLookGood } from '@/utils/NumberUtils';
 
 import styles from '../Payment.module.scss';
-import { GroupTariff } from '../settings';
 import { TariffTipesEnum } from '../TariffTipesEnum';
 
+import { GroupTariff } from '@/dto/payment/SeasonTicket';
 import { MessageService } from '@/service/MessageService';
 
 const { Item } = List;
 
 interface SelectedDrawerProps {
-  selectedTarifsId: string[];
-  setSelectedTarifsId: (l: string[] | ((prev: string[]) => string[])) => void;
+  selectedTarifsIds: number[];
+  setSelectedTarifsIds: (l: number[] | ((prev: number[]) => number[])) => void;
   initTrainerSelected: Record<string, boolean>;
   isTrenerSelected: Record<string, boolean>;
   setIsTrenerSelected: (
@@ -29,8 +29,8 @@ interface SelectedDrawerProps {
 }
 
 export const SelectedDrawer: FC<SelectedDrawerProps> = ({
-  selectedTarifsId,
-  setSelectedTarifsId,
+  selectedTarifsIds,
+  setSelectedTarifsIds,
   initTrainerSelected,
   isTrenerSelected,
   setIsTrenerSelected,
@@ -41,10 +41,10 @@ export const SelectedDrawer: FC<SelectedDrawerProps> = ({
   const showDrawer = () => setOpen(true);
   const onClose = () => setOpen(false);
 
-  const handleRemoveTariff = (uuid: string) => setSelectedTarifsId((prev) => prev.filter((id) => id !== uuid));
+  const handleRemoveTariff = (id: number) => setSelectedTarifsIds((prev) => prev.filter((i) => i !== id));
   const toggleTrainer = (type: string) => setIsTrenerSelected((prev) => ({ ...prev, [type]: !prev[type] }));
   const handlePayt = () => {
-    setSelectedTarifsId([]);
+    setSelectedTarifsIds([]);
     setIsTrenerSelected(initTrainerSelected);
     MessageService.success();
   };
@@ -52,16 +52,16 @@ export const SelectedDrawer: FC<SelectedDrawerProps> = ({
   const data = useMemo(() => {
     return instanceData.map((el) => ({
       ...el,
-      tariffs: el.tariffs.filter(({ uuid }) => selectedTarifsId.includes(uuid)),
+      tariffs: el.tariffs.filter(({ id }) => selectedTarifsIds.includes(id)),
       trenerPrice: isTrenerSelected[el.type] ? el.trenerPrice : undefined,
     }));
-  }, [selectedTarifsId, isTrenerSelected]);
+  }, [selectedTarifsIds, isTrenerSelected]);
 
   const isSelectedData = useMemo(() => data.some((el) => el.tariffs.length), [data]);
 
   return (
     <>
-      <Badge count={selectedTarifsId.length} className={styles.selectedDrawer}>
+      <Badge count={selectedTarifsIds.length} className={styles.selectedDrawer}>
         <Avatar size={64} icon={<ShoppingCartOutlined />} onClick={showDrawer} />
       </Badge>
       <Drawer
@@ -78,24 +78,24 @@ export const SelectedDrawer: FC<SelectedDrawerProps> = ({
             size="large"
             dataSource={data}
             renderItem={({ type, tariffs, trenerPrice }) =>
-              tariffs.map((tarif, index) => (
+              tariffs.map((tariff, index) => (
                 <Item
-                  key={tarif.uuid}
+                  key={tariff.id}
                   actions={[
                     <DeleteFilled
                       key="delete"
                       className={styles.selectedDrawerDelete}
-                      onClick={() => handleRemoveTariff(tarif.uuid)}
+                      onClick={() => handleRemoveTariff(tariff.id)}
                     />,
                   ]}
                 >
                   <Item.Meta
                     title={
                       <Typography.Text>
-                        {TariffTipesEnum[type as keyof typeof TariffTipesEnum]} - {formatAmountToLookGood(tarif.price)}
+                        {TariffTipesEnum[type as keyof typeof TariffTipesEnum]} - {formatAmountToLookGood(tariff.price)}
                       </Typography.Text>
                     }
-                    description={`${tarif.name} - ${InterfaceLabels.FROM_TO[0]} ${tarif.time[0]} ${InterfaceLabels.FROM_TO[1]} ${tarif.time[1]}`}
+                    description={`${tariff.name} - ${InterfaceLabels.FROM_TO[0]} ${tariff.time[0]} ${InterfaceLabels.FROM_TO[1]} ${tariff.time[1]}`}
                   />
                   {trenerPrice && index === 0 && (
                     <Space size="small">

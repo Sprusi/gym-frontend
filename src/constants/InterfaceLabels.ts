@@ -6,6 +6,20 @@ export const FROM_TO: [string, string] = ['с', 'до'];
 export const RUB = 'руб.';
 
 /**
+ *  AXIOS
+ */
+export const NO_CONNECTION_TO_SERVER = 'Нет связи с сервером';
+export const ACCESS_DENIED = 'Доступ запрещен';
+export const LOGIN_ERROR = 'Ошибка входа в систему';
+export const SERVER_REQUEST_ERROR = 'Ошибка в запросе к серверу';
+export const REQUEST_ERROR = 'Ошибка в запросе';
+export const PAGE_NOT_FOUND = 'Страница или документ не найдена';
+export const INACTIVE_SESSION = 'Сессия истекла или неактивна';
+export const INTERNAL_SERVER_ERROR = 'Ошибка на стороне сервера';
+export const ERROR = (key: string) => 'Ошибка ' + key;
+export const SOMETHING_WENT_WRONG = 'Что-то пошло не так ...';
+
+/**
  * Animation Page
  */
 export const AP_TITLE_FIRST = 'ТВОЙ РИНГ';
