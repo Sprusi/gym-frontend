@@ -1,6 +1,8 @@
+import { GlobalTicketTypeKeys } from '../enums/GlobalTicketType';
+
 export interface SeasonTicket {
   id: number;
-  globalType: GlobalTicketType;
+  globalType: GlobalTicketTypeKeys;
   type: 'morning' | 'afternoon' | 'evening';
   timeStart: string;
   timeEnd: string;
@@ -8,14 +10,8 @@ export interface SeasonTicket {
   trainerPrice: number;
 }
 
-export enum GlobalTicketType {
-  girl = 'girl',
-  boy = 'boy',
-  children = 'children',
-}
-
 export interface GroupTariff {
-  type: GlobalTicketType;
+  type: GlobalTicketTypeKeys;
   title: string;
   tariffs: GroupTariffData[];
   trenerPrice: number;

@@ -9,8 +9,8 @@ import { ButtonCustomed } from '@/components/button/ButtonCustomed';
 import { InterfaceLabels } from '@/constants';
 import { formatAmountToLookGood } from '@/utils/NumberUtils';
 
+import { GlobalTicketType } from '../../../dto/enums/GlobalTicketType';
 import styles from '../Payment.module.scss';
-import { TariffTipesEnum } from '../TariffTipesEnum';
 
 import { GroupTariff } from '@/dto/payment/SeasonTicket';
 import { MessageService } from '@/service/MessageService';
@@ -92,7 +92,8 @@ export const SelectedDrawer: FC<SelectedDrawerProps> = ({
                   <Item.Meta
                     title={
                       <Typography.Text>
-                        {TariffTipesEnum[type as keyof typeof TariffTipesEnum]} - {formatAmountToLookGood(tariff.price)}
+                        {GlobalTicketType[type as keyof typeof GlobalTicketType]} -{' '}
+                        {formatAmountToLookGood(tariff.price)}
                       </Typography.Text>
                     }
                     description={`${tariff.name} - ${InterfaceLabels.FROM_TO[0]} ${tariff.time[0]} ${InterfaceLabels.FROM_TO[1]} ${tariff.time[1]}`}

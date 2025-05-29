@@ -6,6 +6,7 @@ import ru_RU from 'antd/es/locale/ru_RU';
 
 import { AnimationPage } from '@/pages/animation/AnimationPage';
 import { LessonsPage } from '@/pages/lessons/LessonsPage';
+import { PaymentList } from '@/pages/payment/admin-list/PaymentList';
 import { Payment } from '@/pages/payment/Payment';
 
 import '../index.css';
@@ -21,7 +22,9 @@ const Navigation = () => {
         <Route path="*" element={<Navigate replace to={'/'} />} />
         <Route path="/lessons" element={<LessonsPage />} />
         <Route path="/payment/:type?" element={<Payment />} />
-        <Route element={<BaseLayout />}></Route>
+        <Route element={<BaseLayout />}>
+          <Route path="payment-list" element={<PaymentList />} />
+        </Route>
       </Routes>
     </ConfigProvider>
   );

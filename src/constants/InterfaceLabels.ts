@@ -4,6 +4,8 @@ export const SUCCESS = 'Выполнено успешно';
 export const ERR_DEFAULT = 'Произошла ошибка';
 export const FROM_TO: [string, string] = ['с', 'до'];
 export const RUB = 'руб.';
+export const REQUIRED_FIELD = 'Поле обязательно для заполнения';
+export const VALIDATION_ERROR = 'Не все обязательные поля были заполнены';
 
 /**
  *  AXIOS
@@ -77,3 +79,21 @@ export const PP_COLUMNS = {
 };
 export const PP_SELECTED_TARIFS = 'Выбранные тарифы';
 export const PP_PAYT = 'Оплатить';
+
+/**
+ * Payment List Page
+ */
+export const PLP_COLUMNS = {
+  globalType: 'Общая категория',
+  type: 'Тип занятия',
+  time: 'Время',
+  price: 'Стоимость тарифа',
+  trainerPrice: 'Стоимость тренера',
+};
+export const PLP_TITLE = 'Редактирование тарифов';
+export const PLP_SET_PRICE_TREINER = 'Назначить цену тренера';
+export const PLP_TARIFF_ADDED = 'Добавить тариф';
+
+export const PLP_TM_TITLE = 'Задать цену тренеру';
+export const PLP_TM_GLOBAL_TYPE_FIELD = 'Общая категория';
+export const PLP_TM_TRAINER_PRICE = 'Цена';

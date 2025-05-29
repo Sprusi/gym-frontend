@@ -8,34 +8,25 @@ import { Card, Carousel, Col, Row, Space, Spin, Table, Typography } from 'antd';
 import { ButtonCustomed } from '@/components/button/ButtonCustomed';
 
 import { InterfaceLabels } from '@/constants';
-import { showError } from '@/utils';
 import { formatAmountToLookGood } from '@/utils/NumberUtils';
 
 import styles from './Payment.module.scss';
 import { SelectedDrawer } from './selected-drawer/SelectedDrawer';
-import { GlobalTicketType, GroupTariff, GroupTariffData, SeasonTicket } from '@/dto/payment/SeasonTicket';
-import { SubscriptionService } from '@/service';
+import { GlobalTicketTypeKeys } from '@/dto/enums/GlobalTicketType';
+import { GroupTariff, GroupTariffData } from '@/dto/payment/SeasonTicket';
+import { usePaymentStore } from '@/stores/payment/usePaymentStore';
 
 export const Payment = () => {
   const { type } = useParams();
 
-  const initTrainerSelected = Object.keys(GlobalTicketType).reduce((acc, item) => {
+  const initTrainerSelected = Object.keys(GlobalTicketTypeKeys).reduce((acc, item) => {
     return (acc[item] = false), acc;
   }, {} as Record<string, boolean>);
   const [isTrenerSelected, setIsTrenerSelected] = useState(initTrainerSelected);
   const [selectedTarifsIds, setSelectedTarifsIds] = useState<number[]>([]);
 
-  const [loading, setLoading] = useState(true);
-  const [ticketsData, setTicketsData] = useState<SeasonTicket[]>([]);
-
-  useEffect(() => getData(), []);
-
-  const getData = () => {
-    SubscriptionService.getAllTickets()
-      .then(({ data }) => setTicketsData(data))
-      .catch(showError)
-      .finally(() => setLoading(false));
-  };
+  const { loading, ticketsData, getTickets } = usePaymentStore();
+  useEffect(() => getTickets(), []);
 
   const groupedTarifs = useMemo(
     () =>
@@ -51,15 +42,15 @@ export const Payment = () => {
         });
 
         return acc;
-      }, {} as Record<GlobalTicketType, { tariffs: GroupTariffData[]; trainerPrice: number }>),
+      }, {} as Record<GlobalTicketTypeKeys, { tariffs: GroupTariffData[]; trainerPrice: number }>),
     [ticketsData]
   );
 
   const formattedTarifs: GroupTariff[] = useMemo(
     () =>
       Object.entries(groupedTarifs).map(([type, data]) => ({
-        type: GlobalTicketType[type as keyof typeof GlobalTicketType],
-        title: InterfaceLabels.PP_TARIF_TITLES[type as keyof typeof GlobalTicketType],
+        type: GlobalTicketTypeKeys[type as keyof typeof GlobalTicketTypeKeys],
+        title: InterfaceLabels.PP_TARIF_TITLES[type as keyof typeof GlobalTicketTypeKeys],
         tariffs: data.tariffs,
         trenerPrice: data.trainerPrice,
       })),
