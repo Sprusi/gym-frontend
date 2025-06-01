@@ -6,6 +6,8 @@ export const FROM_TO: [string, string] = ['с', 'до'];
 export const RUB = 'руб.';
 export const REQUIRED_FIELD = 'Поле обязательно для заполнения';
 export const VALIDATION_ERROR = 'Не все обязательные поля были заполнены';
+export const REALLY_DELETE = 'Действительно удалить?';
+export const NOT_ID = 'Не найден ID';
 
 /**
  *  AXIOS
@@ -97,3 +99,6 @@ export const PLP_TARIFF_ADDED = 'Добавить тариф';
 export const PLP_TM_TITLE = 'Задать цену тренеру';
 export const PLP_TM_GLOBAL_TYPE_FIELD = 'Общая категория';
 export const PLP_TM_TRAINER_PRICE = 'Цена';
+
+export const PLP_EM_TITLE_CREATE = 'Создать тариф';
+export const PLP_EM_TITLE_EDIT = 'Изменить тариф';

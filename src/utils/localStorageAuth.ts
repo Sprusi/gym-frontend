@@ -16,7 +16,7 @@ const setCurrentToken = (tokenResponse: TokenResponse, additionalPayload?: Token
     MessageService.error('Invalid token');
     throw new Error('Invalid token');
   }
-  const payload = parseJwt(tokenResponse.accessToken) as any;
+  const payload = parseJwt(tokenResponse.accessToken) as TokenPayload;
   const token: Token = { token: tokenResponse, payload: { ...payload, ...additionalPayload } };
   localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
   return token;

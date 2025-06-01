@@ -11,3 +11,10 @@
     width: 300px !important;
   }
 }
+
+.editModal {
+  &Field {
+    width: 100%;
+    max-width: 400px !important;
+  }
+}

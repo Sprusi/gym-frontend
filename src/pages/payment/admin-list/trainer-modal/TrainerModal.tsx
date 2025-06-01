@@ -24,7 +24,10 @@ export const TrainerModal: FC = () => {
       .then((formData) => setTrainerPrice(formData).then(() => form.resetFields()))
       .catch(() => MessageService.warn(InterfaceLabels.VALIDATION_ERROR));
   }, []);
-  const handleCancel = useCallback(() => setTrainerModalOpen(false), []);
+  const handleCancel = useCallback(() => {
+    setTrainerModalOpen(false);
+    form.resetFields();
+  }, []);
 
   return (
     <Modal

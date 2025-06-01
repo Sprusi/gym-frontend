@@ -5,15 +5,15 @@ export const formatAmountToLookGood = (
   let answer = undefined;
   if (s !== undefined && s !== '' && s !== 'undefined') {
     const isNegative = (typeof s === 'string' && s.startsWith('-')) || (typeof s === 'number' && s < 0);
-    const absValue = isNegative ? s.toString().replace('-', '') : s.toString();
-    answer = formatStrAmountAsYouType(absValue.toString(), numberOfDecimalPointsToPreserve);
+    const absValue = isNegative ? s?.toString().replace('-', '') : s?.toString();
+    answer = formatStrAmountAsYouType(absValue?.toString(), numberOfDecimalPointsToPreserve);
     if (numberOfDecimalPointsToPreserve == 2) {
-      const separatorIndex = answer.lastIndexOf('.');
+      const separatorIndex = answer?.lastIndexOf('.');
       if (separatorIndex < 0) {
         answer += '.00';
-      } else if (separatorIndex === answer.length - 1) {
+      } else if (separatorIndex === answer?.length - 1) {
         answer += '00';
-      } else if (separatorIndex === answer.length - 2) {
+      } else if (separatorIndex === answer?.length - 2) {
         answer += '0';
       }
     }
@@ -30,7 +30,7 @@ export const formatStrAmountAsYouType = (number: string, decimalPointsToPreserve
   if (answer) {
     answer = answer.replace(/[^\d.]/g, '');
 
-    const separatorIndex = answer.lastIndexOf('.');
+    const separatorIndex = answer?.lastIndexOf('.');
 
     let beforeSeparator = separatorIndex >= 0 ? answer.substring(0, separatorIndex) : answer;
     let afterSeparator = separatorIndex >= 0 ? answer.substring(separatorIndex + 1) : '';

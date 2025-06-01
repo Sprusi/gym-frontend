@@ -1,12 +1,12 @@
 import { Key, useMemo } from 'react';
 
-import { EditOutlined } from '@ant-design/icons';
 import { Badge, Tag } from 'antd';
 
 import { getGlobalTypeColor } from './utils';
 import { InterfaceLabels } from '@/constants';
 import { formatAmountToLookGood } from '@/utils';
 
+import ActionColumnRender from './action-column/ActionColumnRender';
 import styles from './PaymentList.module.scss';
 import { GlobalTicketType, GlobalTicketTypeKeys } from '@/dto/enums/GlobalTicketType';
 import { TicketType, TicketTypeKeys } from '@/dto/enums/TicketsType';
@@ -29,8 +29,8 @@ export const usePaymentListColumns = () =>
         title: '',
         dataIndex: 'action',
         key: 'action',
-        render: () => <EditOutlined />,
-        width: 60,
+        render: (_: string, record: SeasonTicket) => <ActionColumnRender record={record} />,
+        width: 80,
         align: 'center' as const,
       },
       {
@@ -38,7 +38,7 @@ export const usePaymentListColumns = () =>
         dataIndex: 'globalType',
         key: 'globalType',
         render: (type: GlobalTicketTypeKeys) => (
-          <Badge color={getGlobalTypeColor(type)} text={GlobalTicketType[type]} />
+          <Badge color={getGlobalTypeColor(type)} text={GlobalTicketType[type] || type} />
         ),
         align: 'center' as const,
         filters: globalTypeFilters,
@@ -49,24 +49,30 @@ export const usePaymentListColumns = () =>
         dataIndex: 'type',
         key: 'type',
         filters: typeFilters,
-        render: (type: TicketTypeKeys) => <Tag className={styles.columnsType}>{TicketType[type]}</Tag>,
+        render: (type: TicketTypeKeys) => <Tag className={styles.columnsType}>{TicketType[type] || type}</Tag>,
         onFilter: (value: Key | boolean, record: SeasonTicket) => record.type === value,
         align: 'center' as const,
       },
-      { title: InterfaceLabels.PLP_COLUMNS.time, dataIndex: 'time', key: 'time' },
+      {
+        title: InterfaceLabels.PLP_COLUMNS.time,
+        dataIndex: 'time',
+        key: 'time',
+        render: (_: string, record: SeasonTicket) =>
+          `${InterfaceLabels.FROM_TO[0]} ${record.timeStart} ${InterfaceLabels.FROM_TO[1]} ${record.timeEnd}`,
+      },
       {
         title: InterfaceLabels.PLP_COLUMNS.price,
         dataIndex: 'price',
         key: 'price',
         render: (value: string) => formatAmountToLookGood(value),
-        sorter: (a: any, b: any) => a.price - b.price,
+        sorter: (a: SeasonTicket, b: SeasonTicket) => a.price - b.price,
       },
       {
         title: InterfaceLabels.PLP_COLUMNS.trainerPrice,
         dataIndex: 'trainerPrice',
         key: 'trainerPrice',
         render: (value: string) => formatAmountToLookGood(value),
-        sorter: (a: any, b: any) => a.trainerPrice - b.trainerPrice,
+        sorter: (a: SeasonTicket, b: SeasonTicket) => a.trainerPrice - b.trainerPrice,
       },
     ];
 
