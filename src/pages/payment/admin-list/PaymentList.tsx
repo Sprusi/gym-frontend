@@ -19,24 +19,22 @@ export const PaymentList = () => {
   const handleTrainerPrice = () => setTrainerModalOpen(true);
 
   return (
-    <div style={{ width: '90%', margin: '2% auto' }}>
-      <Card
-        title={InterfaceLabels.PLP_TITLE}
-        extra={
-          <Space>
-            <ButtonCustomed disabled={loading} onClick={handleTrainerPrice}>
-              {InterfaceLabels.PLP_SET_PRICE_TREINER}
-            </ButtonCustomed>
-            <ButtonCustomed disabled={loading} onClick={() => setEditModalOpen(true)}>
-              {InterfaceLabels.PLP_TARIFF_ADDED}
-            </ButtonCustomed>
-          </Space>
-        }
-      >
-        <Table columns={columns} dataSource={ticketsData} bordered loading={loading} />
-        <EditModal />
-        <TrainerModal />
-      </Card>
-    </div>
+    <Card
+      title={InterfaceLabels.PLP_TITLE}
+      extra={
+        <Space>
+          <ButtonCustomed disabled={loading} onClick={handleTrainerPrice}>
+            {InterfaceLabels.PLP_SET_PRICE_TREINER}
+          </ButtonCustomed>
+          <ButtonCustomed disabled={loading} onClick={() => setEditModalOpen(true)}>
+            {InterfaceLabels.PLP_TARIFF_ADDED}
+          </ButtonCustomed>
+        </Space>
+      }
+    >
+      <Table columns={columns} dataSource={ticketsData} bordered loading={loading} rowKey={'id'} />
+      <EditModal />
+      <TrainerModal />
+    </Card>
   );
 };

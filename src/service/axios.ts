@@ -7,9 +7,7 @@ import { AuthService } from './AuthService';
 import { MessageService } from './MessageService';
 
 export function getBaseUrl(): string {
-  // todo - Добавить .env
-  // return process.env.REACT_APP_BASE_URL || 'http://localhost:5001';
-  return 'http://localhost:5001';
+  return process.env.REACT_APP_BASE_URL || 'http://localhost:5001';
 }
 
 const instance = axios.create({ baseURL: getBaseUrl() });

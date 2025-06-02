@@ -24,6 +24,12 @@ export const ERROR = (key: string) => 'Ошибка ' + key;
 export const SOMETHING_WENT_WRONG = 'Что-то пошло не так ...';
 
 /**
+ *  MENU
+ */
+export const PAYMENT_PROFILE = 'Тарифы';
+export const PAYMENT_LIST = 'Настройка Тарифов';
+
+/**
  * Animation Page
  */
 export const AP_TITLE_FIRST = 'ТВОЙ РИНГ';

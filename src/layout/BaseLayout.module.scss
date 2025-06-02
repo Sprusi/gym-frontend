@@ -1,4 +1,33 @@
 .layout {
   transition: all 0.2s;
+
+  &Sider {
+    overflow: auto;
+    height: 100vh;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    &Microfront {
+      height: calc(100vh - 65px) !important;
+      top: 65px !important;
+    }
+
+    &Menu {
+      margin-top: 4px;
+    }
+  }
+
+  &Inner {
+    margin-left: 80px;
+    margin-right: 20px;
+    &Microfront {
+      margin-top: 65px;
+    }
+  }
 }
 
+.contentArea {
+  width: 95%;
+  margin: 2% auto;
+  min-height: 280px;
+}

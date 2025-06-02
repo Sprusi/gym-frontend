@@ -6,4 +6,8 @@ export const gymTheme: ThemeConfig = {
     fontSize: 18,
     colorPrimary: '#606060d9',
   },
+  components: {
+    Menu: { darkItemBg: '#000' },
+    Layout: { siderBg: '#000' },
+  },
 };
