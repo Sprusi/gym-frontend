@@ -1,0 +1,10 @@
+.title {
+  margin-bottom: 1% !important;
+}
+
+.formItem {
+  &Calories,
+  &Date {
+    width: 300px;
+  }
+}

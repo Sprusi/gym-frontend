@@ -27,6 +27,7 @@ export const SOMETHING_WENT_WRONG = 'Что-то пошло не так ...';
  *  MENU
  */
 export const PAYMENT_PROFILE = 'Тарифы';
+export const ACHIEVEMENTS = 'Достижения';
 export const PAYMENT_LIST = 'Настройка Тарифов';
 
 /**
@@ -110,3 +111,17 @@ export const PLP_TM_TRAINER_PRICE = 'Цена';
 
 export const PLP_EM_TITLE_CREATE = 'Создать тариф';
 export const PLP_EM_TITLE_EDIT = 'Изменить тариф';
+
+/**
+ * Achievements Page
+ */
+export const AP_TITLE = 'Цели и Достижения';
+export const AP_ADD_BUTTON = 'Добавить запись';
+export const AP_COLUMNS = {
+  date: 'Дата',
+  calories: 'Потрачено калорий',
+  group: 'Группа мышц',
+  comment: 'Комментарий',
+};
+export const AP_EM_TITLE_CREATE = 'Создать запись';
+export const AP_EM_TITLE_EDIT = 'Изменить запись';

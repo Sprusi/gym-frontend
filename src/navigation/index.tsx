@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import ru_RU from 'antd/es/locale/ru_RU';
 
+import { Achievements } from '@/pages/achievements/Achievements';
 import { AnimationPage } from '@/pages/animation/AnimationPage';
 import { LessonsPage } from '@/pages/lessons/LessonsPage';
 import { PaymentList } from '@/pages/payment/admin-list/PaymentList';
@@ -27,6 +28,7 @@ const Navigation = () => {
         <Route element={<BaseLayout />}>
           {hasAccess('payment-profile') && <Route path="payment-profile" element={<Payment />} />}
           {hasAccess('payment-list') && <Route path="payment-list" element={<PaymentList />} />}
+          {hasAccess('achievements') && <Route path="achievements" element={<Achievements />} />}
         </Route>
       </Routes>
     </ConfigProvider>

@@ -1,0 +1,10 @@
+export const DATE = 'YYYY-MM-DD';
+export const DATE_TIME = 'YYYY-MM-DDTHH:mm:ss';
+export const DATE_TIME_SECONDS_VIEW = 'DD.MM.YYYY HH:mm:ss';
+export const DATE_TIME_VIEW = 'DD.MM.YYYY HH:mm';
+export const DATE_VIEW = 'DD.MM.YYYY';
+export const PICKER_DATE_VIEW = 'DD-MM-YYYY';
+export const DATE_YEAR = 'YY';
+export const DATE_MONTH = 'MM';
+export const DATE_YEAR_AND_MONTH = 'YYYY-MM';
+export const DATE_FULL_MONTH_AND_YEAR = 'MMMM YYYY';

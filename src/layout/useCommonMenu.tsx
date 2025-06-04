@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { CreditCardOutlined, ProfileOutlined } from '@ant-design/icons';
+import { CreditCardOutlined, FlagOutlined, ProfileOutlined } from '@ant-design/icons';
 import { ItemType, MenuItemType } from 'antd/es/menu/interface';
 import { MenuInfo } from 'rc-menu/lib/interface';
 
@@ -29,6 +29,12 @@ export const useCommonMenu = () => {
       key: 'payment-profile',
       icon: <CreditCardOutlined />,
       label: InterfaceLabels.PAYMENT_PROFILE,
+    });
+  hasAccess('achievements') &&
+    menuItems.push({
+      key: 'achievements',
+      icon: <FlagOutlined />,
+      label: InterfaceLabels.ACHIEVEMENTS,
     });
   hasAccess('payment-list') &&
     menuItems.push({

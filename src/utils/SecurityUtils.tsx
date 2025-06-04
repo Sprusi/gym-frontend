@@ -8,6 +8,9 @@ export const hasAccess = (path: string): boolean => {
   switch (path) {
     case 'payment-profile':
       return isUser || isManager;
+    case 'achievements':
+      return isUser || isManager;
+
     case 'payment-list':
       return isManager;
 
