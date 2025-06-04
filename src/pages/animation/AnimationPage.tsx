@@ -6,13 +6,16 @@ import { Flex, Space, Typography } from 'antd';
 import { ButtonCustomed } from '@/components/button/ButtonCustomed';
 
 import { InterfaceLabels } from '@/constants';
+import { getDefaultPath } from '@/utils/SecurityUtils';
 
 import styles from './AnimationPage.module.scss';
 import { BackgroundMotion } from './background-motion/BackgroundMotion';
+import { useToken } from '@/hook/useToken';
 
 export const AnimationPage: FC = () => {
+  const { isAuthenticated } = useToken();
   const navigate = useNavigate();
-  const handleStart = () => navigate('lessons');
+  const handleStart = () => navigate(isAuthenticated ? getDefaultPath() : 'lessons');
 
   return (
     <BackgroundMotion>

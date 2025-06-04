@@ -1,8 +1,10 @@
 .wrapper {
   height: 100%;
-  width: 90%;
-  margin: 1% auto;
   position: relative;
+  &Preview {
+    width: 90%;
+    margin: 1% auto;
+  }
 }
 
 .title {
@@ -21,7 +23,7 @@
 }
 
 .selectedDrawer {
-  position: absolute;
+  position: fixed;
   right: 5%;
   bottom: 10%;
   &Delete {
@@ -29,5 +31,12 @@
   }
   &Payt {
     margin-top: 50px;
+  }
+}
+
+.paymentDidBuy {
+  margin-top: 3%;
+  &Title{
+    margin-bottom: 3%;
   }
 }

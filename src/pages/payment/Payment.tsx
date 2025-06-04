@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { PlusOutlined } from '@ant-design/icons';
 import { Card, Carousel, Col, Row, Space, Spin, Table, Typography } from 'antd';
 
 import { ButtonCustomed } from '@/components/button/ButtonCustomed';
@@ -10,20 +9,24 @@ import { ButtonCustomed } from '@/components/button/ButtonCustomed';
 import { InterfaceLabels } from '@/constants';
 import { formatAmountToLookGood } from '@/utils/NumberUtils';
 
+import { PaymentDidBuy } from './payment-did-buy/PaymentDidBuy';
 import styles from './Payment.module.scss';
 import { SelectedDrawer } from './selected-drawer/SelectedDrawer';
+import { usePaymentColumns } from './usePaymentColumns';
 import { GlobalTicketTypeKeys } from '@/dto/enums/GlobalTicketType';
 import { GroupTariff, GroupTariffData } from '@/dto/payment/SeasonTicket';
 import { usePaymentStore } from '@/stores/payment/usePaymentStore';
 
 export const Payment = () => {
   const { type } = useParams();
+  const currentLocation = useLocation();
 
   const initTrainerSelected = Object.keys(GlobalTicketTypeKeys).reduce((acc, item) => {
     return (acc[item] = false), acc;
   }, {} as Record<string, boolean>);
   const [isTrenerSelected, setIsTrenerSelected] = useState(initTrainerSelected);
   const [selectedTarifsIds, setSelectedTarifsIds] = useState<number[]>([]);
+  const [calculateKey, setCalculateKey] = useState(0);
 
   const { loading, ticketsData, getTickets } = usePaymentStore();
   useEffect(() => getTickets(), []);
@@ -67,42 +70,17 @@ export const Payment = () => {
     [formattedTarifs]
   );
 
-  const columns = useMemo(
-    () => [
-      { key: 'name', dataIndex: 'name', title: InterfaceLabels.PP_COLUMNS.name },
-      {
-        key: 'time',
-        dataIndex: 'time',
-        title: InterfaceLabels.PP_COLUMNS.time,
-        render: (time: string[]) => `${InterfaceLabels.FROM_TO[0]} ${time[0]} ${InterfaceLabels.FROM_TO[1]} ${time[1]}`,
-      },
-      {
-        key: 'price',
-        dataIndex: 'price',
-        title: InterfaceLabels.PP_COLUMNS.price,
-        render: (price: string) => formatAmountToLookGood(price) + ` ${InterfaceLabels.RUB}`,
-      },
-      {
-        key: 'actions',
-        dataIndex: 'actions',
-        render: (_: string, { id }: GroupTariffData) => (
-          <ButtonCustomed
-            icon={<PlusOutlined />}
-            disabled={selectedTarifsIds.includes(id)}
-            onClick={() => setSelectedTarifsIds((prev) => [...prev, id])}
-          />
-        ),
-        width: 50,
-      },
-    ],
-    [selectedTarifsIds]
-  );
+  const columns = usePaymentColumns(selectedTarifsIds, setSelectedTarifsIds);
 
   const toggleTrainer = (type: string) => setIsTrenerSelected((prev) => ({ ...prev, [type]: !prev[type] }));
 
+  const wrapperClasses = currentLocation.pathname.includes('payment-profile')
+    ? styles.wrapper
+    : `${styles.wrapper} ${styles.wrapperPreview}`;
+
   return (
     <>
-      <Row className={styles.wrapper} justify={'center'} align={'middle'}>
+      <Row className={wrapperClasses} justify={'center'} align={'top'}>
         <Col span={20}>
           <Row justify={'center'} className={styles.title}>
             <Typography.Title level={3}>{InterfaceLabels.PP_TITLE}</Typography.Title>
@@ -139,6 +117,7 @@ export const Payment = () => {
               ))}
             </Carousel>
           </Spin>
+          <PaymentDidBuy instanceData={instanceData} loading={loading} calculateKey={calculateKey} />
         </Col>
       </Row>
       <SelectedDrawer
@@ -148,6 +127,7 @@ export const Payment = () => {
         isTrenerSelected={isTrenerSelected}
         setIsTrenerSelected={setIsTrenerSelected}
         instanceData={instanceData}
+        setCalculateKey={setCalculateKey}
       />
     </>
   );

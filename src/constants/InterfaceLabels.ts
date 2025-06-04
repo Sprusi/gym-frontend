@@ -87,6 +87,8 @@ export const PP_COLUMNS = {
 };
 export const PP_SELECTED_TARIFS = 'Выбранные тарифы';
 export const PP_PAYT = 'Оплатить';
+export const PP_DID_BUY_TITLE = 'Активные тарифы';
+export const PP_DID_BUY_TRENER = '+ Тренер';
 
 /**
  * Payment List Page
