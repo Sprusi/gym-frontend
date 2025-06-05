@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
 
-import { Card, Row, Table, Typography } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+import { Card, Popconfirm, Row, Table, Typography } from 'antd';
 
 import { ButtonCustomed } from '@/components/button/ButtonCustomed';
 
@@ -12,13 +13,23 @@ import { Achievement } from '@/dto/achievements/Achievement';
 import { useAchievementsStore } from '@/stores/achievements/useAchievementsStore';
 
 export const Achievements: FC = () => {
-  const { updateNeeded, achievement, setModalOpen, getAllAchievements } = useAchievementsStore();
+  const { updateNeeded, achievement, setModalOpen, getAllAchievements, deleteAchievement } = useAchievementsStore();
 
   useEffect(() => {
     updateNeeded && getAllAchievements();
   }, [updateNeeded]);
 
   const columns = [
+    {
+      dataIndex: 'action',
+      key: 'action',
+      render: (_: string, record: Achievement) => (
+        <Popconfirm title={InterfaceLabels.REALLY_DELETE} onConfirm={() => deleteAchievement(record.id)}>
+          <DeleteOutlined />
+        </Popconfirm>
+      ),
+      align: 'center' as const,
+    },
     {
       title: InterfaceLabels.AP_COLUMNS.date,
       dataIndex: 'date',

@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 import { localStorageAuth } from '@/utils';
 
@@ -25,6 +26,13 @@ export const getAllAchievements = (): Promise<AxiosResponse<Achievement[]>> => {
 
 export const addAchievements = async (data: Achievement): Promise<AxiosResponse<void>> => {
   const prevData = (await getAllAchievements()).data;
-  localStorage.setItem('achievements' + getPrefix(), JSON.stringify([...prevData, data]));
+  localStorage.setItem('achievements' + getPrefix(), JSON.stringify([...prevData, { ...data, id: uuidv4() }]));
+  return getDto();
+};
+
+export const deleteAchievementsById = async (id: number): Promise<AxiosResponse<void>> => {
+  const prevData = (await getAllAchievements()).data;
+  const newData = prevData.filter((el) => el.id != id);
+  localStorage.setItem('achievements' + getPrefix(), JSON.stringify(newData));
   return getDto();
 };

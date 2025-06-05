@@ -14,6 +14,7 @@ type Store = {
   achievement: Achievement[];
   getAllAchievements: () => void;
   addAchievement: (data: Achievement) => void;
+  deleteAchievement: (id: number) => void;
 
   modalOpen: boolean;
   setModalOpen: (l: boolean) => void;
@@ -37,6 +38,21 @@ export const useAchievementsStore = create<Store>()((set) => ({
       AchievementsService.addAchievements(data)
         .then(() => {
           set(() => ({ modalOpen: false }));
+          MessageService.success();
+          set(() => ({ updateNeeded: true }));
+          res();
+        })
+        .catch((e) => {
+          showError(e);
+          rej();
+        })
+        .finally(() => set(() => ({ loading: false })));
+    }),
+  deleteAchievement: async (id) =>
+    new Promise((res, rej) => {
+      set(() => ({ loading: true }));
+      AchievementsService.deleteAchievementsById(id)
+        .then(() => {
           MessageService.success();
           set(() => ({ updateNeeded: true }));
           res();
