@@ -8,6 +8,8 @@ export const REQUIRED_FIELD = 'Поле обязательно для запол
 export const VALIDATION_ERROR = 'Не все обязательные поля были заполнены';
 export const REALLY_DELETE = 'Действительно удалить?';
 export const NOT_ID = 'Не найден ID';
+export const KCAL_DAY = 'ккал/сутки';
+export const KCAL = 'ккал';
 
 /**
  *  AXIOS
@@ -123,5 +125,9 @@ export const AP_COLUMNS = {
   group: 'Группа мышц',
   comment: 'Комментарий',
 };
+export const AP_IDEAL_INDICATOR = 'Идеального показателя калорий';
 export const AP_EM_TITLE_CREATE = 'Создать запись';
 export const AP_EM_TITLE_EDIT = 'Изменить запись';
+export const AP_GRAFF_TITLE = 'График сожжённых калорий по дням';
+export const AP_GRAFF_CALORIES = 'Калории';
+export const AP_GRAFF_DATE = 'Дата';
