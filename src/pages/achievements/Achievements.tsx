@@ -63,7 +63,7 @@ export const Achievements: FC = () => {
           </ButtonCustomed>
         }
       >
-        <Table bordered dataSource={achievement} columns={columns} rowKey={'id'} />
+        <Table bordered dataSource={achievement} columns={columns} rowKey={'id'} scroll={{ x: 600 }} />
       </Card>
 
       <AchievementsGraff achievements={achievement} />

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { CreditCardOutlined, FlagOutlined, ProfileOutlined } from '@ant-design/icons';
+import { CreditCardOutlined, ReadOutlined, TableOutlined, TrophyOutlined } from '@ant-design/icons';
 import { ItemType, MenuItemType } from 'antd/es/menu/interface';
 import { MenuInfo } from 'rc-menu/lib/interface';
 
@@ -33,13 +33,19 @@ export const useCommonMenu = () => {
   hasAccess('achievements') &&
     menuItems.push({
       key: 'achievements',
-      icon: <FlagOutlined />,
+      icon: <TrophyOutlined />,
       label: InterfaceLabels.ACHIEVEMENTS,
+    });
+  hasAccess('training-list') &&
+    menuItems.push({
+      key: 'training-list',
+      icon: <TableOutlined />,
+      label: InterfaceLabels.TRAINING_LIST,
     });
   hasAccess('payment-list') &&
     menuItems.push({
       key: 'payment-list',
-      icon: <ProfileOutlined />,
+      icon: <ReadOutlined />,
       label: InterfaceLabels.PAYMENT_LIST,
     });
 

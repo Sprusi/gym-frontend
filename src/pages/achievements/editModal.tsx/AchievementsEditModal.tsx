@@ -31,7 +31,7 @@ const AchievementsEditModal: FC = () => {
       .validateFields()
       .then(async (formData) => {
         try {
-          const date = formData.date ? dayjs(formData.date).format('YYYY-MM-DD') : undefined;
+          const date = formData.date ? dayjs(formData.date).format(Formats.DATE) : undefined;
           const dto = { ...formData, date };
           if (isCreate) {
             await addAchievement(dto);

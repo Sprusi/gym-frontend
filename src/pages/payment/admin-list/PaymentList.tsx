@@ -32,7 +32,7 @@ export const PaymentList = () => {
         </Space>
       }
     >
-      <Table columns={columns} dataSource={ticketsData} bordered loading={loading} rowKey={'id'} />
+      <Table columns={columns} dataSource={ticketsData} bordered loading={loading} rowKey={'id'} scroll={{ x: 800 }} />
       <EditModal />
       <TrainerModal />
     </Card>

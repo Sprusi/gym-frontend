@@ -98,8 +98,9 @@ export const Payment = () => {
                       columns={columns}
                       dataSource={tariffs}
                       rowKey={(rec) => `${type} - ${rec.name}`}
+                      scroll={{ x: 600 }}
                     />
-                    <Space>
+                    <Space wrap>
                       <Typography.Text>{InterfaceLabels.PP_TRENER}</Typography.Text>
                       <ButtonCustomed
                         type="transparent"

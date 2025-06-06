@@ -9,6 +9,7 @@ import { AnimationPage } from '@/pages/animation/AnimationPage';
 import { LessonsPage } from '@/pages/lessons/LessonsPage';
 import { PaymentList } from '@/pages/payment/admin-list/PaymentList';
 import { Payment } from '@/pages/payment/Payment';
+import { TrainingList } from '@/pages/training/TrainingList';
 
 import { getDefaultPath, hasAccess } from '@/utils/SecurityUtils';
 
@@ -29,6 +30,7 @@ const Navigation = () => {
           {hasAccess('payment-profile') && <Route path="payment-profile" element={<Payment />} />}
           {hasAccess('payment-list') && <Route path="payment-list" element={<PaymentList />} />}
           {hasAccess('achievements') && <Route path="achievements" element={<Achievements />} />}
+          {hasAccess('training-list') && <Route path="training-list" element={<TrainingList />} />}
         </Route>
       </Routes>
     </ConfigProvider>

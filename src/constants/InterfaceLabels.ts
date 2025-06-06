@@ -31,6 +31,7 @@ export const SOMETHING_WENT_WRONG = 'Что-то пошло не так ...';
 export const PAYMENT_PROFILE = 'Тарифы';
 export const ACHIEVEMENTS = 'Достижения';
 export const PAYMENT_LIST = 'Настройка Тарифов';
+export const TRAINING_LIST = 'Тренировки';
 
 /**
  * Animation Page
@@ -131,3 +132,21 @@ export const AP_EM_TITLE_EDIT = 'Изменить запись';
 export const AP_GRAFF_TITLE = 'График сожжённых калорий по дням';
 export const AP_GRAFF_CALORIES = 'Калории';
 export const AP_GRAFF_DATE = 'Дата';
+
+/**
+ * Training List Page
+ */
+export const TLP_TITLE = 'Тренировки';
+export const TLP_TYPE = 'Тип: ';
+export const TLP_TYPE_VALUES = {
+  my: 'Мои',
+  group: 'Групповые',
+};
+export const TLP_SIGN_UP = 'Записаться';
+export const TLP_COLUMNS = {
+  date: 'Дата',
+  time: 'Время',
+  type: 'Тип',
+  trainer: 'Тренер',
+  holl: 'Зал',
+};

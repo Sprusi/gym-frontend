@@ -10,6 +10,8 @@ export const hasAccess = (path: string): boolean => {
       return isUser || isManager;
     case 'achievements':
       return isUser || isManager;
+    case 'training-list':
+      return isUser || isManager;
 
     case 'payment-list':
       return isManager;
