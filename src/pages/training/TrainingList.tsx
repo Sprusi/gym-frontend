@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Card, Row, Space, Switch, Table, Typography } from 'antd';
 
@@ -6,13 +6,14 @@ import { ButtonCustomed } from '@/components/button/ButtonCustomed';
 
 import { InterfaceLabels } from '@/constants';
 
+import { TrainingEditModal } from './create-modal/TrainingCreateModal';
 import styles from './TrainingList.module.scss';
 import { useTrainingColumns } from './useTrainingColumns';
 import { useTrainingStore } from '@/stores/training/useTrainingStore';
 
 export const TrainingList = () => {
   const [isMyTraining, setIsMyTraining] = useState(true);
-  const { loading, updateNeeded, trainingData, getAllTraining } = useTrainingStore();
+  const { loading, updateNeeded, trainingData, getAllTraining, setModalOpen } = useTrainingStore();
   const columns = useTrainingColumns();
 
   useEffect(() => {
@@ -23,6 +24,8 @@ export const TrainingList = () => {
     () => trainingData.filter((el) => (isMyTraining ? el.type === 'private' : el.type === 'group')),
     [trainingData, isMyTraining]
   );
+
+  const handleSingUp = useCallback(() => setModalOpen(true), []);
 
   return (
     <>
@@ -41,10 +44,14 @@ export const TrainingList = () => {
               disabled={loading}
             />
           </Space>
-          <ButtonCustomed size="large">{InterfaceLabels.TLP_SIGN_UP}</ButtonCustomed>
+          <ButtonCustomed size="large" onClick={handleSingUp}>
+            {InterfaceLabels.TLP_SIGN_UP}
+          </ButtonCustomed>
         </Row>
         <Table columns={columns} dataSource={filteredData} loading={loading} rowKey={'id'} />
       </Card>
+
+      <TrainingEditModal setIsMyTraining={setIsMyTraining} />
     </>
   );
 };

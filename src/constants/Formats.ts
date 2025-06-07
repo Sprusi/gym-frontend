@@ -8,3 +8,4 @@ export const DATE_YEAR = 'YY';
 export const DATE_MONTH = 'MM';
 export const DATE_YEAR_AND_MONTH = 'YYYY-MM';
 export const DATE_FULL_MONTH_AND_YEAR = 'MMMM YYYY';
+export const TIME_WHITHOUT_SEC = 'HH:mm';

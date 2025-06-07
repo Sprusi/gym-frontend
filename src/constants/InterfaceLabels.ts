@@ -142,7 +142,7 @@ export const TLP_TYPE_VALUES = {
   my: 'Мои',
   group: 'Групповые',
 };
-export const TLP_SIGN_UP = 'Записаться';
+export const TLP_SIGN_UP = 'Записаться с тренером';
 export const TLP_COLUMNS = {
   date: 'Дата',
   time: 'Время',
@@ -150,3 +150,4 @@ export const TLP_COLUMNS = {
   trainer: 'Тренер',
   holl: 'Зал',
 };
+export const TLP_CM_TITLE = 'Тренировка с тренером';

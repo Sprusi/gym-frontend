@@ -27,7 +27,11 @@ export const getTrainingForUser = async (): Promise<AxiosResponse<Training[]>> =
 };
 
 export const addTraining = async (data: Training): Promise<AxiosResponse<void>> => {
+  const userId = localStorageAuth.getCurrentToken()?.payload?.id || null;
   const prevData = (await getAllTraining()).data;
-  localStorage.setItem(getAllTrainingPrefix(), JSON.stringify([...prevData, { ...data, id: uuidv4() }]));
+  localStorage.setItem(
+    getAllTrainingPrefix(),
+    JSON.stringify([...prevData, { ...data, id: uuidv4(), belongsId: userId }])
+  );
   return getDto();
 };

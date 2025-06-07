@@ -3,5 +3,14 @@
 }
 
 .header {
-  margin-bottom: 1%;
+  margin-bottom: 1.5%;
+}
+
+.modal {
+  &FormItem {
+    &Time,
+    &Date {
+      width: 300px;
+    }
+  }
 }
