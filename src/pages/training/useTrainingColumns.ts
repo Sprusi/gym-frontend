@@ -27,7 +27,6 @@ export const useTrainingColumns = () =>
         title: InterfaceLabels.TLP_COLUMNS.trainer,
         dataIndex: 'trainer',
         key: 'trainer',
-        // sorter: (a: Training, b: Training) => a.trainer?.localeCompare(b.trainer),
       },
       {
         title: InterfaceLabels.TLP_COLUMNS.holl,

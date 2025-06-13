@@ -35,7 +35,6 @@ export const formatStrAmountAsYouType = (number: string, decimalPointsToPreserve
     let beforeSeparator = separatorIndex >= 0 ? answer.substring(0, separatorIndex) : answer;
     let afterSeparator = separatorIndex >= 0 ? answer.substring(separatorIndex + 1) : '';
 
-    // adding spaces every 3 characters
     const numberParts: string[] = [];
 
     for (let i = beforeSeparator.length; i > 0; i -= 3) {

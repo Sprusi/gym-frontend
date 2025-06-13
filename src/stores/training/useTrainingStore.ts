@@ -68,6 +68,6 @@ export const useTrainingStore = create<Store>()((set, get) => ({
         });
     }),
 
-  modalOpen: true,
+  modalOpen: false,
   setModalOpen: (value) => set(() => ({ modalOpen: value })),
 }));
