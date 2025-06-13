@@ -29,3 +29,9 @@ export const parseDate = (date?: Date | string): DateWrapper | undefined => {
 };
 
 export type DateWrapper = { date: Dayjs; dateTime: boolean };
+
+export const getOptionsFromEnum = <T extends object>(enumObj: T) =>
+  Object.keys(enumObj).map((key) => ({
+    value: key,
+    label: enumObj[key as keyof T],
+  }));

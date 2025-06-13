@@ -13,10 +13,17 @@ import { useTrainingStore } from '@/stores/training/useTrainingStore';
 
 export const TrainingList = () => {
   const [isMyTraining, setIsMyTraining] = useState(true);
-  const { loading, updateNeeded, trainingData, getAllTraining, setModalOpen } = useTrainingStore();
+  const { loading, updateNeeded, trainingData, getTraining, getAllTraining, getTrainers, setModalOpen } =
+    useTrainingStore();
+
   const columns = useTrainingColumns();
 
   useEffect(() => {
+    getTrainers();
+  }, []);
+
+  useEffect(() => {
+    updateNeeded && getTraining();
     updateNeeded && getAllTraining();
   }, [updateNeeded]);
 

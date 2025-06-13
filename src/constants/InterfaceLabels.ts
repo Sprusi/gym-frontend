@@ -151,3 +151,4 @@ export const TLP_COLUMNS = {
   holl: 'Зал',
 };
 export const TLP_CM_TITLE = 'Тренировка с тренером';
+export const TLP_CM_TIME_TOOLTIP = 'Занятие длиться 1 час 30 минут';

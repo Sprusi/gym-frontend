@@ -8,8 +8,8 @@
 
 .modal {
   &FormItem {
-    &Time,
-    &Date {
+    &Date,
+    &Time {
       width: 300px;
     }
   }
