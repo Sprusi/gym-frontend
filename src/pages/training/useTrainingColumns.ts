@@ -4,9 +4,10 @@ import { InterfaceLabels } from '@/constants';
 import { mapDate } from '@/utils/FormUtils';
 
 import { HollNames, HollNamesKeys } from '@/dto/enums/HollNames';
+import { Person } from '@/dto/person/Person';
 import { Training } from '@/dto/training/Training';
 
-export const useTrainingColumns = () =>
+export const useTrainingColumns = (trainers: Person[], isManager: boolean) =>
   useMemo(() => {
     const columns = [
       {
@@ -21,12 +22,17 @@ export const useTrainingColumns = () =>
         title: InterfaceLabels.TLP_COLUMNS.type,
         dataIndex: 'type',
         key: 'type',
-        render: (value: keyof typeof InterfaceLabels.TLP_TYPE_VALUES) => InterfaceLabels.TLP_TYPE_VALUES[value],
+        render: (value: keyof typeof InterfaceLabels.TLP_TYPE_VALUES) =>
+          isManager ? InterfaceLabels.TLP_TYPE_VALUES_ADMIN[value] : InterfaceLabels.TLP_TYPE_VALUES[value],
       },
       {
         title: InterfaceLabels.TLP_COLUMNS.trainer,
-        dataIndex: 'trainer',
-        key: 'trainer',
+        dataIndex: 'trainerId',
+        key: 'trainerId',
+        render: (value: number) => {
+          const person = trainers?.find((el) => el.id === value);
+          return `${person?.firstName || '||'} ${person?.middleName || ''}`.trim();
+        },
       },
       {
         title: InterfaceLabels.TLP_COLUMNS.holl,
@@ -36,4 +42,4 @@ export const useTrainingColumns = () =>
       },
     ];
     return columns;
-  }, []);
+  }, [trainers, isManager]);

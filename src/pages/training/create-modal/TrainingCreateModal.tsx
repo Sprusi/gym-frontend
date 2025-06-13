@@ -5,13 +5,14 @@ import { DatePicker, Form, Modal, Select, TimePicker } from 'antd';
 import dayjs from 'dayjs';
 
 import { Formats, InterfaceLabels } from '@/constants';
-import { getRequiredRule } from '@/utils/FormUtils';
+import { getOptionsFromEnum, getRequiredRule } from '@/utils/FormUtils';
 
 import styles from '../TrainingList.module.scss';
 
 import { NOT_WORK_TIME_HOURS, TRAINING_DURATION_MINUTES } from './settings';
 import { HollNames, HollNamesKeys } from '@/dto/enums/HollNames';
 import { Training } from '@/dto/training/Training';
+import { useHasRole } from '@/hook/useHasRole';
 import { MessageService } from '@/service/MessageService';
 import { useTrainingStore } from '@/stores/training/useTrainingStore';
 
@@ -23,6 +24,7 @@ interface TrainingEditModalProps {
 
 export const TrainingEditModal: FC<TrainingEditModalProps> = ({ setIsMyTraining }) => {
   const [form] = Form.useForm();
+  const { isManager } = useHasRole();
   const { loading, modalOpen, setModalOpen, addTraining, allTrainingData, trainers } = useTrainingStore();
 
   const handleOk = useCallback(() => {
@@ -32,7 +34,12 @@ export const TrainingEditModal: FC<TrainingEditModalProps> = ({ setIsMyTraining 
         try {
           const date = formData.date ? dayjs(formData.date).format(Formats.DATE) : undefined;
           const time = formData.time ? dayjs(formData.time).format(Formats.TIME_WHITHOUT_SEC) : undefined;
-          const dto: Training = { ...formData, date, time, type: 'private', holl: HollNamesKeys.base };
+          const dto: Training = {
+            ...formData,
+            date,
+            time,
+            type: isManager ? 'group' : 'private',
+          };
           await addTraining(dto);
           setIsMyTraining(true);
           form.resetFields();
@@ -103,6 +110,10 @@ export const TrainingEditModal: FC<TrainingEditModalProps> = ({ setIsMyTraining 
   }, [formDateValue, formTrainerIdValue, allTrainingData]);
 
   const trainerOptions = useMemo(() => trainers.map((el) => ({ label: el.email, value: el.id })), [trainers]);
+  const hollOptions = useMemo(
+    () => getOptionsFromEnum(HollNames).filter((el) => (isManager ? el.value !== HollNamesKeys.base : true)),
+    [isManager]
+  );
 
   return (
     <Modal
@@ -112,7 +123,13 @@ export const TrainingEditModal: FC<TrainingEditModalProps> = ({ setIsMyTraining 
       onCancel={handleCancel}
       loading={loading}
     >
-      <Form form={form} layout="vertical" labelWrap wrapperCol={{ span: 24 }}>
+      <Form
+        form={form}
+        layout="vertical"
+        labelWrap
+        wrapperCol={{ span: 24 }}
+        initialValues={isManager ? {} : { holl: HollNames.base }}
+      >
         <Item name="date" label={InterfaceLabels.TLP_COLUMNS.date} rules={[getRequiredRule()]}>
           <DatePicker format={Formats.DATE_VIEW} className={styles.modalFormItemDate} onChange={handleClearTime} />
         </Item>
@@ -133,8 +150,8 @@ export const TrainingEditModal: FC<TrainingEditModalProps> = ({ setIsMyTraining 
             className={styles.modalFormItemTime}
           />
         </Item>
-        <Item name="holl" label={InterfaceLabels.TLP_COLUMNS.holl}>
-          <Select defaultValue={HollNames.base} disabled />
+        <Item name="holl" label={InterfaceLabels.TLP_COLUMNS.holl} rules={isManager ? [getRequiredRule()] : []}>
+          <Select disabled={!isManager} options={hollOptions} />
         </Item>
       </Form>
     </Modal>

@@ -1,7 +1,7 @@
 /* eslint-disable i18n/no-russian-character */
 export enum HollNames {
   base = 'Основной',
-  greenArea = 'Зеленая хол',
+  greenArea = 'Зеленый хол',
   blackArea = 'Черный хол',
 }
 

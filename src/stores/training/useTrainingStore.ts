@@ -42,7 +42,7 @@ export const useTrainingStore = create<Store>()((set, get) => ({
       .finally(() => set(() => ({ loading: false, updateNeeded: false })));
   },
   getAllTraining: () => {
-    TrainingService.getTrainingForUser()
+    TrainingService.getAllTraining()
       .then(({ data }) => set(() => ({ allTrainingData: data })))
       .catch(showError);
   },

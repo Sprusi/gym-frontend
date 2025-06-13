@@ -139,10 +139,15 @@ export const AP_GRAFF_DATE = 'Дата';
 export const TLP_TITLE = 'Тренировки';
 export const TLP_TYPE = 'Тип: ';
 export const TLP_TYPE_VALUES = {
-  my: 'Мои',
+  private: 'Мои',
+  group: 'Групповые',
+};
+export const TLP_TYPE_VALUES_ADMIN = {
+  private: 'Частные',
   group: 'Групповые',
 };
 export const TLP_SIGN_UP = 'Записаться с тренером';
+export const TLP_CREATE = 'Создать тренеровку';
 export const TLP_COLUMNS = {
   date: 'Дата',
   time: 'Время',

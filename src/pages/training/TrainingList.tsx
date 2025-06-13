@@ -9,14 +9,25 @@ import { InterfaceLabels } from '@/constants';
 import { TrainingEditModal } from './create-modal/TrainingCreateModal';
 import styles from './TrainingList.module.scss';
 import { useTrainingColumns } from './useTrainingColumns';
+import { useHasRole } from '@/hook/useHasRole';
 import { useTrainingStore } from '@/stores/training/useTrainingStore';
 
 export const TrainingList = () => {
+  const { isManager } = useHasRole();
   const [isMyTraining, setIsMyTraining] = useState(true);
-  const { loading, updateNeeded, trainingData, getTraining, getAllTraining, getTrainers, setModalOpen } =
-    useTrainingStore();
+  const {
+    loading,
+    updateNeeded,
+    trainingData,
+    allTrainingData,
+    trainers,
+    getTraining,
+    getAllTraining,
+    getTrainers,
+    setModalOpen,
+  } = useTrainingStore();
 
-  const columns = useTrainingColumns();
+  const columns = useTrainingColumns(trainers, isManager);
 
   useEffect(() => {
     getTrainers();
@@ -27,12 +38,20 @@ export const TrainingList = () => {
     updateNeeded && getAllTraining();
   }, [updateNeeded]);
 
-  const filteredData = useMemo(
-    () => trainingData.filter((el) => (isMyTraining ? el.type === 'private' : el.type === 'group')),
-    [trainingData, isMyTraining]
-  );
+  const filteredData = useMemo(() => {
+    const dataSource = isManager ? allTrainingData : trainingData;
+    return dataSource.filter((el) => (isMyTraining ? el.type === 'private' : el.type === 'group'));
+  }, [trainingData, isMyTraining, isManager]);
 
   const handleSingUp = useCallback(() => setModalOpen(true), []);
+
+  const actionButtonTitle = isManager ? InterfaceLabels.TLP_CREATE : InterfaceLabels.TLP_SIGN_UP;
+  const isCheckedTitle = isManager
+    ? InterfaceLabels.TLP_TYPE_VALUES_ADMIN.private
+    : InterfaceLabels.TLP_TYPE_VALUES.private;
+  const isUnCheckedValue = isManager
+    ? InterfaceLabels.TLP_TYPE_VALUES_ADMIN.group
+    : InterfaceLabels.TLP_TYPE_VALUES.group;
 
   return (
     <>
@@ -44,15 +63,15 @@ export const TrainingList = () => {
           <Space size="large">
             <Typography.Text strong>{InterfaceLabels.TLP_TYPE}</Typography.Text>
             <Switch
-              checkedChildren={InterfaceLabels.TLP_TYPE_VALUES.my}
-              unCheckedChildren={InterfaceLabels.TLP_TYPE_VALUES.group}
+              checkedChildren={isCheckedTitle}
+              unCheckedChildren={isUnCheckedValue}
               value={isMyTraining}
               onChange={setIsMyTraining}
               disabled={loading}
             />
           </Space>
           <ButtonCustomed size="large" onClick={handleSingUp}>
-            {InterfaceLabels.TLP_SIGN_UP}
+            {actionButtonTitle}
           </ButtonCustomed>
         </Row>
         <Table columns={columns} dataSource={filteredData} loading={loading} rowKey={'id'} />
