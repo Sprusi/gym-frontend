@@ -17,6 +17,7 @@ export function buildWebpack(options: BuildOptions): webpack.Configuration {
     output: {
       path: paths.output,
       filename: 'index-bundle.js',
+      publicPath: '/gym-frontend/',
     },
     devServer: isDev ? buildDevServer(options) : undefined,
     plugins: buildPlugins(options),
