@@ -34,5 +34,5 @@ export const getDefaultPath = (): string => {
     else if (isUser || isManager) return '/gym/payment-profile';
   }
 
-  return process.env.REACT_APP_DEFAULT_ROUTE_PATH || '/';
+  return '/';
 };
